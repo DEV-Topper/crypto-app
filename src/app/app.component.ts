@@ -3,7 +3,7 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { Storage } from '@ionic/storage';
 
 @Component({
-  selector: 'app-root',
+  selector: 'cr-root',
   imports: [IonApp, IonRouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

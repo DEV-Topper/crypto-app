@@ -1,0 +1,40 @@
+<ion-button
+  [shape]="iconOnly ? 'round' : undefined"
+  (click)="onClick()"
+  class="items-center justify-center ion-no-margin leading-normal [--border-radius:0] transform-none inline-flex shadow-none capitalize"
+  [ngClass]="[
+    size === 'medium' ? 'gap-10' : 'gap-8',
+    size,
+    color,
+    fullwidth ? 'w-100' : 'w-auto',
+  ]"
+  [disabled]="disabled"
+  [fill]="fill"
+  [color]="color"
+  [type]="type"
+  [download]="download"
+  [href]="href"
+  [target]="target"
+>
+  @if (isLoading) {
+    <ion-spinner name="crescent"></ion-spinner>
+  } @else {
+    @if (leftIconName || leftIconSrc) {
+      <ion-icon
+        [slot]="!iconOnly ? 'start' : 'icon-only'"
+        [name]="leftIconName"
+        [src]="leftIconSrc"
+        class="text-2xl"
+      ></ion-icon>
+    }
+    <ng-content></ng-content>
+    @if (rightIconName || rightIconSrc) {
+      <ion-icon
+        [slot]="!iconOnly ? 'end' : 'icon-only'"
+        [name]="rightIconName"
+        [src]="rightIconSrc"
+        class="text-2xl"
+      ></ion-icon>
+    }
+  }
+</ion-button>

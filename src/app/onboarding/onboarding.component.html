@@ -1,0 +1,33 @@
+<ion-content
+  class="flex flex-col items-center justify-center h-screen ion-padding"
+>
+  <swiper-container
+    #swiperRef
+    init="false"
+    class="w-full h-full flex flex-col items-center text-center justify-center"
+  >
+    @for (item of carousels; let idx = $index; track item) {
+      <swiper-slide class="flex flex-col items-center justify-center h-full">
+        <ion-icon class="text-[230px]" [src]="item.icon"></ion-icon>
+
+        <div class="flex items-center py-10 justify-center gap-2">
+          @for (i of carousels; let bidx = $index; track i) {
+            <div
+              class="rounded-full size-5 border cursor-pointer"
+              [ngClass]="{ 'bg-[#00B6E9]': currentIndex === bidx }"
+              (click)="goToSlide(bidx)"
+            ></div>
+          }
+        </div>
+
+        <h1 class="text-[32px] font-black mt-6">{{ item.b }}</h1>
+        <p class="text-center text-base mt-2">{{ item.p }}</p>
+        @if (isLastSlide) {
+          <cr-button size="large" class="mt-10" [fullwidth]="true">
+            Get Started
+          </cr-button>
+        }
+      </swiper-slide>
+    }
+  </swiper-container>
+</ion-content>
