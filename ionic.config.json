@@ -1,0 +1,12 @@
+{
+  "defaultProject": "crypto-app",
+  "projects": {
+    "crypto-app": {
+      "name": "crypto-app",
+      "integrations": {
+"capacitor": {}
+},
+      "type": "angular-standalone"
+    }
+  }
+}
