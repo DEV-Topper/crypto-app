@@ -4,9 +4,29 @@
     "crypto-app": {
       "name": "crypto-app",
       "integrations": {
-"capacitor": {}
-},
-      "type": "angular-standalone"
+        "capacitor": {
+          "ios": {
+            "contentInset": "automatic"
+          },
+          "android": {
+            "allowMixedContent": true
+          }
+        }
+      },
+      "type": "angular-standalone",
+      "framework": "@angular",
+      "bundler": "webpack",
+      "webDir": "www",
+      "build": {
+        "options": {
+          "sourceMap": true,
+          "optimization": {
+            "scripts": true,
+            "styles": true,
+            "fonts": true
+          }
+        }
+      }
     }
   }
 }

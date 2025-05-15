@@ -1,10 +1,62 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  ApplicationConfig,
+  importProvidersFrom
+} from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import {
+  provideRouter,
+  RouteReuseStrategy,
+  withEnabledBlockingInitialNavigation,
+  withInMemoryScrolling,
+  withRouterConfig,
+} from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import {
+  IonicRouteStrategy,
+  provideIonicAngular,
+} from '@ionic/angular/standalone';
+import { Drivers } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { HttpRequestInterceptor } from '../interceptors/http.interceptor';
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideIonicAngular } from '@ionic/angular/standalone';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay()), provideIonicAngular({})]
+  providers: [
+    provideAnimations(),
+    provideIonicAngular(),
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled',
+      }),
+      withEnabledBlockingInitialNavigation(),
+      withRouterConfig({ onSameUrlNavigation: 'reload' }),
+    ),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    importProvidersFrom(
+      IonicModule.forRoot({
+        mode: 'ios',
+      }),
+      IonicStorageModule.forRoot({
+        driverOrder: [
+          Drivers.SecureStorage,
+          Drivers.IndexedDB,
+          Drivers.LocalStorage,
+        ],
+      }),
+    ),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestInterceptor,
+      multi: true,
+    },
+  ],
 };
