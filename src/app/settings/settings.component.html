@@ -1,0 +1,277 @@
+<ion-content class="bg-black text-white">
+  <!-- Settings Main View -->
+  <div *ngIf="currentView === 'settings'" class="h-full">
+    <!-- Header with border -->
+    <div class="flex items-center px-4 py-4 border-b border-gray-700">
+      <button (click)="goBack()" class="mr-4">
+        <ion-icon name="chevron-back-outline" class="text-white text-xl"></ion-icon>
+      </button>
+      <h1 class="text-white text-xl font-normal flex-1 text-center mr-8">Privacy and Settings</h1>
+    </div>
+
+    <!-- Profile Section -->
+    <div class="flex justify-center py-12">
+      <div class="relative">
+        <div class="w-32 h-32 rounded-full overflow-hidden">
+          <img 
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-05-24%20at%2019.18.21-5GmevLzoY88umd0olqY9hx4n0UbXvR.png" 
+            alt="Profile" 
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="absolute bottom-0 right-0 w-8 h-8 bg-[#6366F1] rounded-lg flex items-center justify-center">
+          <ion-icon name="create-outline" class="text-white text-sm"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Section -->
+    <div class="px-4 mb-8">
+      <h3 class="text-[#6366F1] text-lg font-normal mb-6">Account</h3>
+      
+      <!-- Manage My Account -->
+      <div 
+        (click)="goToManageAccount()" 
+        class="flex items-center justify-between py-4 border-b border-gray-800"
+      >
+        <div class="flex items-center">
+          <ion-icon name="person-outline" class="text-white text-xl mr-4"></ion-icon>
+          <span class="text-white text-lg font-normal">Manage My Account</span>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="text-white text-lg"></ion-icon>
+      </div>
+      
+      <!-- Security Settings -->
+      <div 
+        (click)="goToSecurity()" 
+        class="flex items-center justify-between py-4 border-b border-gray-800"
+      >
+        <div class="flex items-center">
+          <ion-icon name="shield-outline" class="text-white text-xl mr-4"></ion-icon>
+          <span class="text-white text-lg font-normal">Security Settings</span>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="text-white text-lg"></ion-icon>
+      </div>
+      
+      <!-- My Balance -->
+      <div class="flex items-center justify-between py-4 border-b border-gray-800">
+        <div class="flex items-center">
+          <ion-icon name="card-outline" class="text-white text-xl mr-4"></ion-icon>
+          <span class="text-white text-lg font-normal">My Balance</span>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="text-white text-lg"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Support Section -->
+    <div class="px-4 mb-16">
+      <h3 class="text-[#6366F1] text-lg font-normal mb-6">Support</h3>
+      
+      <!-- Help -->
+      <div class="flex items-center justify-between py-4 border-b border-gray-800">
+        <span class="text-white text-lg font-normal">Help</span>
+        <ion-icon name="chevron-forward-outline" class="text-white text-lg"></ion-icon>
+      </div>
+      
+      <!-- FAQ -->
+      <div class="flex items-center justify-between py-4 border-b border-gray-800">
+        <span class="text-white text-lg font-normal">FAQ</span>
+        <ion-icon name="chevron-forward-outline" class="text-white text-lg"></ion-icon>
+      </div>
+      
+      <!-- Contact Support -->
+      <div class="flex items-center justify-between py-4 border-b border-gray-800">
+        <span class="text-white text-lg font-normal">Contact Support</span>
+        <ion-icon name="chevron-forward-outline" class="text-white text-lg"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="px-4 space-y-0">
+      <!-- Clear Saved Data -->
+      <div class="flex items-center justify-between py-4 border-b border-gray-800">
+        <span class="text-white text-lg font-normal">Clear Saved Data</span>
+        <ion-icon name="trash-outline" class="text-red-500 text-lg"></ion-icon>
+      </div>
+      
+      <!-- Log Out - Now clickable -->
+      <button 
+        (click)="openLogoutPopup()" 
+        class="w-full flex items-center justify-between py-6 bg-transparent border-0 hover:bg-gray-900 transition-colors duration-200"
+      >
+        <span class="text-white text-lg font-normal">Log Out</span>
+        <ion-icon name="log-out-outline" class="text-red-500 text-lg"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Security View -->
+  <div *ngIf="currentView === 'security'" class="h-full">
+    <!-- Header with border -->
+    <div class="flex items-center px-4 py-4 border-b border-gray-700">
+      <button (click)="goBack()" class="mr-4">
+        <ion-icon name="chevron-back-outline" class="text-white text-xl"></ion-icon>
+      </button>
+    </div>
+
+    <!-- Security Content -->
+    <div class="px-4 pt-8">
+      <!-- Security Title -->
+      <h1 class="text-white text-4xl font-bold mb-4">Security</h1>
+      
+      <!-- Two-Factor Authentication Subtitle -->
+      <h2 class="text-white text-xl font-normal mb-4">Two-Factor Authentication (2FA)</h2>
+      
+      <!-- Description -->
+      <p class="text-gray-300 text-base mb-8 leading-relaxed">To protect your account, it is advised to enable at least two forms of 2FA</p>
+      
+      <!-- Security Methods -->
+      <div class="space-y-4">
+        <!-- Passkey (Biometrics) -->
+        <div class="border border-gray-600 rounded-lg p-4 flex items-center justify-between">
+          <div class="flex items-center">
+            <ion-icon name="finger-print-outline" class="text-white text-2xl mr-4"></ion-icon>
+            <div class="flex items-center">
+              <span class="text-white text-lg font-normal mr-3">Passkey (Biometrics)</span>
+              <span class="bg-[#6366F1] text-white text-xs px-2 py-1 rounded font-medium">Recommended</span>
+            </div>
+          </div>
+          <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+            <ion-icon name="checkmark" class="text-white text-sm"></ion-icon>
+          </div>
+        </div>
+
+        <!-- Authenticator App -->
+        <div class="border border-gray-600 rounded-lg p-4 flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-4">
+              <ion-icon name="checkmark" class="text-white text-sm"></ion-icon>
+            </div>
+            <span class="text-white text-lg font-normal">Authenticator App</span>
+          </div>
+          <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+            <ion-icon name="checkmark" class="text-white text-sm"></ion-icon>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="border border-gray-600 rounded-lg p-4 flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-6 h-6 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+              <ion-icon name="mail-outline" class="text-white text-sm"></ion-icon>
+            </div>
+            <span class="text-white text-lg font-normal">Email</span>
+          </div>
+          <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+            <ion-icon name="checkmark" class="text-white text-sm"></ion-icon>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="border border-gray-600 rounded-lg p-4 flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-6 h-6 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+              <ion-icon name="key-outline" class="text-white text-sm"></ion-icon>
+            </div>
+            <span class="text-white text-lg font-normal">Password</span>
+          </div>
+          <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+            <ion-icon name="checkmark" class="text-white text-sm"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Details View -->
+  <div *ngIf="currentView === 'profile-details'" class="h-full bg-black">
+    <!-- Header with border -->
+    <div class="flex items-center px-4 py-4 border-b border-gray-700">
+      <button (click)="goBack()" class="mr-4">
+        <ion-icon name="chevron-back-outline" class="text-white text-xl"></ion-icon>
+      </button>
+      <h1 class="text-white text-xl font-normal flex-1 text-center mr-8">Profile Details</h1>
+    </div>
+
+    <!-- Profile Details Content -->
+    <div class="px-4 pt-12">
+      <!-- Account Name -->
+      <div class="mb-12">
+        <div class="flex items-start justify-between">
+          <div>
+            <h2 class="text-white text-2xl font-normal mb-2">Account Name</h2>
+            <p class="text-gray-400 text-lg">Akindele Paul</p>
+          </div>
+          <button class="mt-1">
+            <ion-icon name="create-outline" class="text-white text-2xl"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="mb-12">
+        <div class="flex items-start justify-between">
+          <div>
+            <h2 class="text-white text-2xl font-normal mb-2">Phone Number</h2>
+            <p class="text-gray-400 text-lg">0902635748</p>
+          </div>
+          <button class="mt-1">
+            <ion-icon name="create-outline" class="text-white text-2xl"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Email Address -->
+      <div class="mb-12">
+        <div class="flex items-start justify-between">
+          <div>
+            <h2 class="text-white text-2xl font-normal mb-2">Email Address</h2>
+            <p class="text-gray-400 text-lg">Akindelepm</p>
+          </div>
+          <button class="mt-1">
+            <ion-icon name="create-outline" class="text-white text-2xl"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Confirmation Popup -->
+  <div 
+    *ngIf="showLogoutPopup" 
+    class="fixed inset-0 z-50 flex items-center justify-center"
+    style="background-color: rgba(0, 0, 0, 0.7);"
+  >
+    <!-- Popup Container -->
+    <div class="logout-popup-container mx-4 w-full max-w-sm">
+      <!-- Popup Content -->
+      <div class="bg-white rounded-3xl p-8 shadow-2xl transform transition-all duration-300 ease-out">
+        <!-- Question Text -->
+        <div class="text-center mb-12">
+          <h2 class="text-black text-2xl font-semibold leading-tight">
+            Are you sure you want to log out
+          </h2>
+        </div>
+
+        <!-- Buttons Container -->
+        <div class="flex gap-4">
+          <!-- No Button -->
+          <button 
+            (click)="closeLogoutPopup()"
+            class="flex-1 py-4 px-6 border-2 border-[#6366F1] bg-transparent rounded-2xl transition-all duration-200 hover:bg-[#6366F1] hover:bg-opacity-5 active:scale-95"
+          >
+            <span class="text-[#6366F1] text-xl font-semibold">No</span>
+          </button>
+
+          <!-- Yes Button -->
+          <cr-button 
+            (click)="confirmLogout()"
+            class="flex-1 py-4 px-6  rounded-lg transition-all duration-200 "
+          >
+            <span class="text-white text-xl font-semibold">Yes</span>
+          </cr-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

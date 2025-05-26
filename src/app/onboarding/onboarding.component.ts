@@ -4,17 +4,21 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ButtonComponent } from '../../components/button/button.component';
 import { register } from 'swiper/element/bundle';
+import { RouterLink } from '@angular/router';
+import { RoutePath } from '../../interfaces/route-path';
 register();
 
 @Component({
   selector: 'cr-onboarding',
   templateUrl: './onboarding.component.html',
   styleUrls: ['./onboarding.component.scss'],
-  imports: [IonContent, IonIcon, NgClass, ButtonComponent],
+  imports: [IonContent, IonIcon, NgClass, ButtonComponent, RouterLink],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class OnboardingComponent implements AfterViewInit {
   title = 'Welcome to the Crypto App';
+
+  Route = RoutePath
 
   carousels = [
     {

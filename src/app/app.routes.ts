@@ -8,8 +8,24 @@ export const routes: Routes = [
       import('./onboarding/onboarding.route').then((m) => m.onboardingRoute),
   },
   {
-    path: '',
-    redirectTo: RoutePath.ONBOARDING,
+     path: RoutePath.AUTH,
+     loadChildren: () => import('./auth/auth.route').then((m) => m.authRoute)
+  },
+  {
+     path: RoutePath.WALLETCREATION,
+     loadChildren: () => import('./wallet-creation/wallent-creation.route').then((m) => m.walletRoute)
+  },
+  {
+     path: RoutePath.DASHBOARD,
+     loadChildren: () => import('./dashboard/dashboard.route').then((m) => m.dashboardRoute)
+  },
+  {
+     path: RoutePath.SETTINGS,
+     loadChildren: () => import('./settings/settings.route').then((m) => m.settingsRoute)
+  },
+  {
+    path: '', 
+    redirectTo: RoutePath.ONBOARDING, 
     pathMatch: 'full',
   },
 ];

@@ -1,0 +1,282 @@
+<!-- verification.component.html -->
+<ion-content class="bg-black text-white ion-padding">
+  <div class="flex flex-col h-full">
+    <!-- Step 1: Nationality and Verification Method -->
+    <div *ngIf="currentStep === 1" class="flex flex-col flex-1">
+      <h1 class="text-2xl font-bold mb-8">Let's Get You Verified</h1>
+      
+      <!-- Nationality Selection -->
+      <div class="mb-8">
+        <label class="block text-white text-lg mb-3">Nationality</label>
+        <div 
+          id="open-country-modal"
+          class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white flex justify-between items-center cursor-pointer"
+          (click)="countryModal.present()"
+        >
+          <div class="flex items-center">
+            <ion-avatar class="w-6 h-6 mr-3" *ngIf="nationality">
+              <img [src]="getCountryFlag(nationality)" alt="Flag">
+            </ion-avatar>
+            <span>{{ nationality || 'Select Country' }}</span>
+          </div>
+          <ion-icon name="chevron-down-outline" class="text-white text-xl"></ion-icon>
+        </div>
+      </div>
+      
+      <!-- Verification Method -->
+      <div class="mb-4">
+        <label class="block text-white text-lg mb-3">Verify with BVN or NIN</label>
+        <div class="flex space-x-6 mb-4">
+          <label class="flex items-center">
+            <div class="relative flex items-center justify-center">
+              <input 
+                type="radio" 
+                name="verifyWith" 
+                value="BVN" 
+                [(ngModel)]="verifyWith" 
+                class="opacity-0 absolute h-6 w-6"
+              />
+              <div 
+                [ngClass]="{'border-[#6366F1] bg-[#6366F1]': verifyWith === 'BVN', 'border-gray-600': verifyWith !== 'BVN'}"
+                class="border-2 rounded-full h-6 w-6 flex items-center justify-center"
+              >
+                <div *ngIf="verifyWith === 'BVN'" class="bg-white rounded-full h-2 w-2"></div>
+              </div>
+            </div>
+            <span class="ml-2">BVN</span>
+          </label>
+          
+          <label class="flex items-center">
+            <div class="relative flex items-center justify-center">
+              <input 
+                type="radio" 
+                name="verifyWith" 
+                value="NIN" 
+                [(ngModel)]="verifyWith" 
+                class="opacity-0 absolute h-6 w-6"
+              />
+              <div 
+                [ngClass]="{'border-[#6366F1] bg-[#6366F1]': verifyWith === 'NIN', 'border-gray-600': verifyWith !== 'NIN'}"
+                class="border-2 rounded-full h-6 w-6 flex items-center justify-center"
+              >
+                <div *ngIf="verifyWith === 'NIN'" class="bg-white rounded-full h-2 w-2"></div>
+              </div>
+            </div>
+            <span class="ml-2">NIN</span>
+          </label>
+        </div>
+        
+        <!-- BVN/NIN Input -->
+        <ion-input
+          type="text"
+          [(ngModel)]="bvnNumber"
+          placeholder="Enter your BVN"
+          class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white mb-4"
+        ></ion-input>
+        
+        <!-- Alternative Verification -->
+        <div class="text-sm text-gray-400 mt-2">
+          Don't have BVN or NIN? <a href="#" class="text-[#00B6E9]">Verify with ID documents</a>
+        </div>
+      </div>
+      
+      <!-- Data Collection Notice -->
+      <div class="mt-auto mb-6 text-sm text-gray-400">
+        We collect your data from public database for verification.
+      </div>
+    </div>
+    
+    <!-- Step 2: Document Selection -->
+    <div *ngIf="currentStep === 2" class="flex flex-col flex-1">
+      <h1 class="text-2xl font-bold mb-8">Let's Get You Verified</h1>
+      
+      <!-- Document Country -->
+      <div class="mb-8">
+        <label class="block text-white text-lg mb-3">Document Issuing country</label>
+        <div 
+          id="open-document-country-modal"
+          class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white flex justify-between items-center cursor-pointer"
+          (click)="documentCountryModal.present()"
+        >
+          <div class="flex items-center">
+            <ion-avatar class="w-6 h-6 mr-3" *ngIf="documentCountry">
+              <img [src]="getCountryFlag(documentCountry)" alt="Flag">
+            </ion-avatar>
+            <span>{{ documentCountry || 'Select Country' }}</span>
+          </div>
+          <ion-icon name="chevron-down-outline" class="text-white text-xl"></ion-icon>
+        </div>
+      </div>
+      
+      <!-- Document Type -->
+      <div>
+        <label class="block text-white text-lg mb-3">Document Type</label>
+        
+        <!-- ID Card -->
+        <div 
+          (click)="selectDocumentType('ID Card')"
+          [ngClass]="{'border-[#6366F1]': documentType === 'ID Card', 'border-gray-600': documentType !== 'ID Card'}"
+          class="flex items-center border rounded-lg p-4 mb-4 cursor-pointer"
+        >
+          <div class="bg-gray-800 rounded-full p-2 mr-3">
+            <ion-icon name="card-outline" class="text-xl"></ion-icon>
+          </div>
+          <div>ID Card</div>
+          <div *ngIf="documentType === 'ID Card'" class="ml-auto text-xs text-[#6366F1]">Recommended</div>
+        </div>
+        
+        <!-- Passport -->
+        <div 
+          (click)="selectDocumentType('Passport')"
+          [ngClass]="{'border-[#6366F1]': documentType === 'Passport', 'border-gray-600': documentType !== 'Passport'}"
+          class="flex items-center border rounded-lg p-4 mb-4 cursor-pointer"
+        >
+          <div class="bg-gray-800 rounded-full p-2 mr-3">
+            <ion-icon name="globe-outline" class="text-xl"></ion-icon>
+          </div>
+          <div>Passport</div>
+        </div>
+        
+        <!-- Driver's License -->
+        <div 
+          (click)="selectDocumentType('Driver\'s License')"
+          [ngClass]="{'border-[#6366F1]': documentType === 'Driver\'s License', 'border-gray-600': documentType !== 'Driver\'s License'}"
+          class="flex items-center border rounded-lg p-4 mb-4 cursor-pointer"
+        >
+          <div class="bg-gray-800 rounded-full p-2 mr-3">
+            <ion-icon name="car-outline" class="text-xl"></ion-icon>
+          </div>
+          <div>Driver's License</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Step 3: Document Upload -->
+    <!-- Step 3: Document Upload -->
+<div *ngIf="currentStep === 3" class="flex flex-col flex-1">
+  <h1 class="text-2xl font-bold mb-2">Document Verification</h1>
+  <p class="text-gray-400 mb-8">Your ID document will be scanned for personal data extraction</p>
+  
+  <!-- Upload Options -->
+  <div class="space-y-6">
+    <!-- Take Pictures -->
+    <div 
+      (click)="takePictures()"
+      class="w-full flex items-center justify-center border border-gray-600 rounded-lg p-5 text-white cursor-pointer"
+    >
+      <div class="flex items-center">
+        <div class="mr-4 text-2xl">
+          <ion-icon name="tablet-portrait-outline"></ion-icon>
+        </div>
+        <span class="text-xl">Take Pictures</span>
+      </div>
+    </div>
+    
+    <!-- Upload Photos -->
+    <div 
+      (click)="uploadPhotos()"
+      class="w-full flex items-center justify-center border border-gray-600 rounded-lg p-5 text-white cursor-pointer"
+    >
+      <div class="flex items-center">
+        <div class="mr-4 text-2xl">
+          <ion-icon name="arrow-up-outline"></ion-icon>
+        </div>
+        <span class="text-xl">Upload Photos</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Guidelines -->
+  <div class="mt-8 space-y-4">
+    <div class="flex items-start">
+      <span class="text-white mr-2 font-bold">*</span>
+      <p class="text-white text-base">Please use the original ID; Copies or screenshots are not allowed</p>
+    </div>
+    <div class="flex items-start">
+      <span class="text-white mr-2 font-bold">*</span>
+      <p class="text-white text-base">Ensure all information is visible; damaged or expired IDs are not accepted</p>
+    </div>
+  </div>
+  
+
+</div>
+    
+    <!-- Continue Button -->
+    <div class="mt-auto">
+      <cr-button 
+        (click)="nextStep()"
+        size="large" class="mt-10 mr-3" [fullwidth]="true"
+      >
+        Continue
+      </cr-button>
+    </div>
+  </div>
+
+  <!-- Country Selection Modal -->
+  <ion-modal #countryModal [initialBreakpoint]="0.4" [breakpoints]="[0, 0.25, 0.4, 0.75]" [backdropDismiss]="true">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <div class="py-2">
+          <h3 class="text-lg font-medium mb-4">Select Country</h3>
+          <ion-searchbar 
+            placeholder="Search countries" 
+            [(ngModel)]="searchQuery"
+            (ionFocus)="countryModal.setCurrentBreakpoint(0.75)"
+            (ionClear)="resetSearch()"
+            class="mb-2"
+          ></ion-searchbar>
+          <ion-list lines="full" class="bg-transparent">
+            <ion-item 
+              *ngFor="let country of filteredCountries" 
+              button 
+              detail="false"
+              (click)="selectCountry(country)"
+              class="py-2"
+            >
+              <ion-avatar slot="start" class="w-8 h-8">
+                <img [src]="country.flag" [alt]="country.name + ' flag'">
+              </ion-avatar>
+              <ion-label>
+                <h2>{{ country.name }}</h2>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Document Country Selection Modal -->
+  <ion-modal #documentCountryModal [initialBreakpoint]="0.4" [breakpoints]="[0, 0.25, 0.4, 0.75]" [backdropDismiss]="true">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <div class="py-2">
+          <h3 class="text-lg font-medium mb-4">Select Document Country</h3>
+          <ion-searchbar 
+            placeholder="Search countries" 
+            [(ngModel)]="searchQuery"
+            (ionFocus)="documentCountryModal.setCurrentBreakpoint(0.75)"
+            (ionClear)="resetSearch()"
+            class="mb-2"
+          ></ion-searchbar>
+          <ion-list lines="full" class="bg-transparent">
+            <ion-item 
+              *ngFor="let country of filteredCountries" 
+              button 
+              detail="false"
+              (click)="selectCountry(country, true)"
+              class="py-2"
+            >
+              <ion-avatar slot="start" class="w-8 h-8">
+                <img [src]="country.flag" [alt]="country.name + ' flag'">
+              </ion-avatar>
+              <ion-label>
+                <h2>{{ country.name }}</h2>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
