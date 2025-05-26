@@ -16,7 +16,7 @@
       "type": "angular-standalone",
       "framework": "@angular",
       "bundler": "webpack",
-      "webDir": "www",
+      "webDir": "./dist/crypto-app/browser",
       "build": {
         "options": {
           "sourceMap": true,
