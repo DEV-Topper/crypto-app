@@ -1,303 +1,488 @@
-<ion-content class="bg-black text-white">
+<ion-content class="bg-white text-black">
   <!-- Dashboard View -->
-  <div *ngIf="currentView === 'dashboard'" class="p-4 h-full">
+  <div *ngIf="currentView === 'dashboard'" class="p-4 h-full bg-white">
     <!-- Header -->
-    <div class="flex items-center justify-between mb-8 pt-4">
-      <button (click)="goToSettings()" class="flex items-center hover:bg-gray-800 p-2 rounded-lg transition-colors duration-200">
-        <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center mr-3">
-          <ion-icon name="person" class="text-white text-xl"></ion-icon>
+    <div class="flex items-center justify-between mb-6 pt-8">
+      <button (click)="goToSettings()" class="flex items-center">
+        <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-3">
+          <ion-icon name="person" class="text-white text-lg"></ion-icon>
         </div>
         <div>
-          <p class="text-gray-400 text-sm">Welcome back</p>
-          <p class="text-white font-medium">{{ user.name }}</p>
+          <p class="text-black text-sm font-medium">Welcome back</p>
+          <p class="text-black font-semibold text-base">{{ user.name }}</p>
         </div>
       </button>
-      <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center">
-        <ion-icon name="notifications-outline" class="text-white text-lg"></ion-icon>
+      <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center">
+        <ion-icon name="notifications" class="text-white text-lg"></ion-icon>
       </div>
     </div>
 
-    <!-- Total Value -->
-    <div class="mb-8">
-      <div class="flex items-center mb-2">
-        <p class="text-gray-400 text-sm mr-2">EST. Total Value (USD)</p>
-        <button 
-          (click)="toggleDashboardAmount()" 
-          class="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded-full hover:bg-gray-800"
-          [attr.aria-label]="dashboardAmountVisible ? 'Hide amount' : 'Show amount'"
-        >
-          <ion-icon 
-            [name]="getEyeIcon(dashboardAmountVisible)" 
-            class="text-lg"
-            [ngClass]="{'text-blue-400': !dashboardAmountVisible}"
-          ></ion-icon>
-        </button>
-      </div>
-      <div class="flex items-center mb-4">
-        <p class="text-white text-3xl font-bold mr-3">{{ getDisplayAmount(user.totalValue, dashboardAmountVisible) }}</p>
-        <button 
-          (click)="toggleDashboardAmount()" 
-          class="text-gray-400 hover:text-white transition-colors duration-200"
-          *ngIf="!dashboardAmountVisible"
-        >
-          <ion-icon name="eye-outline" class="text-xl"></ion-icon>
-        </button>
-      </div>
-      <cr-button  
-        (click)="addFunds()"
-        class="text-white py-3 rounded-lg font-medium hover:bg-[#5856eb] transition-colors duration-200"
-      >
-        Add Funds
-      </cr-button>
-    </div>
-
-    <!-- Transaction History -->
-    <div class="flex-1">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-white text-lg font-medium">Transaction History</h3>
-        <button (click)="seeMoreTransactions()" class="flex items-center text-gray-400 text-sm hover:text-white transition-colors duration-200">
-          <span class="mr-1">See More</span>
-          <ion-icon name="chevron-forward-outline" class="text-sm"></ion-icon>
-        </button>
-      </div>
-
-      <div class="space-y-3">
-        <div 
-          *ngFor="let transaction of transactions" 
-          class="bg-transparent border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors duration-200"
-        >
-          <div class="flex justify-between items-start mb-2">
-            <div>
-              <p class="text-white font-medium">{{ transaction.type }} - {{ transaction.user }}</p>
-              <p class="text-gray-400 text-sm">{{ transaction.date }}</p>
-            </div>
-            <p class="text-white font-medium">{{ transaction.amount }}</p>
+    <!-- Progress Steps -->
+    <div class="flex items-center justify-center mb-8">
+      <div class="flex items-center">
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center relative">
+            <ion-icon name="checkmark" class="text-white text-sm"></ion-icon>
           </div>
-          <div class="flex items-center">
-            <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-            <span class="text-green-500 text-sm">{{ transaction.status }}</span>
+        </div>
+        
+        <!-- Line 1 -->
+        <div class="w-16 h-0.5 bg-gray-300 mx-2"></div>
+        
+        <!-- Step 2 - KYC (Active) -->
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center relative">
+            <span class="text-white text-sm font-bold">2</span>
+          </div>
+          <p class="text-blue-500 text-sm font-medium mt-2">KYC</p>
+        </div>
+        
+        <!-- Line 2 -->
+        <div class="w-16 h-0.5 bg-gray-300 mx-2"></div>
+        
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center relative">
+            <span class="text-gray-500 text-sm font-bold">3</span>
+          </div>
+          <p class="text-gray-500 text-sm font-medium mt-2">Deposit</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Value Section -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center">
+          <p class="text-black text-base font-medium mr-2">EST. Total Value (USD)</p>
+          <button (click)="toggleDashboardAmount()" class="text-black">
+            <ion-icon [name]="getEyeIcon(dashboardAmountVisible)" class="text-lg"></ion-icon>
+          </button>
+        </div>
+        <button (click)="addFunds()" class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium text-sm">
+          Add Funds
+        </button>
+      </div>
+      <p class="text-black text-4xl font-bold mb-6">{{ getDisplayAmount(user.totalValue, dashboardAmountVisible) }}</p>
+    </div>
+
+    <!-- Crypto Section -->
+    <div>
+      <h3 class="text-black text-xl font-semibold mb-6">Crypto</h3>
+      <div class="space-y-0">
+        <div *ngFor="let crypto of cryptoHoldings; let i = index" 
+             class="flex items-center justify-between py-4"
+             [class.border-b]="i < cryptoHoldings.length - 1"
+             [class.border-gray-200]="i < cryptoHoldings.length - 1">
+          
+          <div class="flex items-center flex-1">
+            <!-- Radio Button -->
+            <div class="w-5 h-5 border-2 border-gray-300 rounded-full mr-4 flex items-center justify-center">
+              <div class="w-2 h-2 bg-transparent rounded-full"></div>
+            </div>
+            
+            <div class="flex-1">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-black font-semibold text-base">{{ crypto.name }}</p>
+                  <p class="text-gray-600 text-sm">{{ crypto.fullName }}</p>
+                  <p class="text-gray-600 text-sm">{{ crypto.pnl }}</p>
+                </div>
+                
+                <div class="text-right">
+                  <p class="text-black font-semibold text-base">{{ crypto.amount }}</p>
+                  <p class="text-gray-600 text-sm">{{ crypto.value }}</p>
+                  <p class="text-red-500 text-sm">{{ crypto.change }}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Portfolio View -->
-  <div *ngIf="currentView === 'portfolio'" class="p-4 h-full">
-    <!-- Total Value -->
-    <div class="text-center mb-8 pt-8">
-      <div class="flex items-center justify-center mb-2">
-        <p class="text-gray-400 text-sm mr-2">EST. Total Value (USD)</p>
-        <button 
-          (click)="togglePortfolioAmount()" 
-          class="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded-full hover:bg-gray-800"
-          [attr.aria-label]="portfolioAmountVisible ? 'Hide amount' : 'Show amount'"
-        >
-          <ion-icon 
-            [name]="getEyeIcon(portfolioAmountVisible)" 
-            class="text-lg"
-            [ngClass]="{'text-blue-400': !portfolioAmountVisible}"
-          ></ion-icon>
+  <!-- Account Balance View -->
+  <div *ngIf="currentView === 'account-balance'" class="p-4 h-full bg-white">
+    <!-- Header -->
+    <div class="flex items-center mb-8 pt-8">
+      <button (click)="goBack()" class="mr-4">
+        <ion-icon name="chevron-back-outline" class="text-black text-2xl"></ion-icon>
+      </button>
+      <h1 class="text-black text-xl font-semibold">Account Balance</h1>
+    </div>
+
+    <!-- Total Value Section -->
+    <div class="mb-8">
+      <div class="flex items-center mb-4">
+        <p class="text-black text-base mr-2">EST. Total Value (USD)</p>
+        <button (click)="togglePortfolioAmount()" class="text-black">
+          <ion-icon [name]="getEyeIcon(portfolioAmountVisible)" class="text-xl"></ion-icon>
         </button>
       </div>
-      <div class="flex items-center justify-center mb-8">
-        <p class="text-white text-3xl font-bold mr-3">{{ getDisplayAmount(user.totalValue, portfolioAmountVisible) }}</p>
-        <button 
-          (click)="togglePortfolioAmount()" 
-          class="text-gray-400 hover:text-white transition-colors duration-200"
-          *ngIf="!portfolioAmountVisible"
-        >
-          <ion-icon name="eye-outline" class="text-xl"></ion-icon>
+      <p class="text-black text-5xl font-bold mb-8">{{ getDisplayAmount(user.totalValue, portfolioAmountVisible) }}</p>
+    
+      <!-- Action Buttons -->
+      <div class="flex space-x-4 mb-8">
+        <button (click)="goToConvert()" class="flex items-center justify-center bg-transparent border border-gray-400 text-black py-3 px-6 rounded-full font-medium">
+          <ion-icon name="swap-horizontal-outline" class="mr-2 text-lg"></ion-icon>
+          Convert
+        </button>
+        <button class="flex items-center justify-center bg-transparent border border-gray-400 text-black py-3 px-6 rounded-full font-medium">
+          <ion-icon name="arrow-up-outline" class="mr-2 text-lg"></ion-icon>
+          Send
+        </button>
+        <button class="flex items-center justify-center bg-transparent border border-gray-400 text-black py-3 px-6 rounded-full font-medium">
+          <ion-icon name="arrow-down-outline" class="mr-2 text-lg"></ion-icon>
+          Receive
         </button>
       </div>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="flex space-x-3 mb-8">
-      <button class="flex-1 bg-[#6366F1] text-white py-3 rounded-lg font-medium hover:bg-[#5856eb] transition-colors duration-200">
-        Add Funds
-      </button>
-      <button class="flex-1 bg-transparent border border-gray-600 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200">
-        Send
-      </button>
-      <button class="flex-1 bg-transparent border border-gray-600 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200">
-        Receive
-      </button>
-    </div>
+    <!-- Separator Line -->
+    <div class="border-t border-gray-300 mb-6"></div>
 
     <!-- Crypto Holdings -->
     <div>
-      <h3 class="text-white text-lg font-medium mb-6">Crypto</h3>
-      <div class="space-y-6">
-        <div *ngFor="let crypto of cryptoHoldings" class="flex items-center justify-between">
-          <div class="flex items-center">
-            <div class="w-10 h-10 bg-gray-700 rounded-full mr-4 flex items-center justify-center">
-              <div class="w-6 h-6 bg-gray-500 rounded-full"></div>
+      <h3 class="text-black text-xl font-semibold mb-6">Crypto</h3>
+      <div class="space-y-0">
+        <div *ngFor="let crypto of accountCrypto; let i = index" 
+           class="flex items-center justify-between py-4"
+           [class.border-b]="i < accountCrypto.length - 1"
+           [class.border-gray-300]="i < accountCrypto.length - 1">
+        
+          <div class="flex items-center flex-1">
+            <!-- Radio Button -->
+            <div class="w-5 h-5 border-2 border-gray-400 rounded-full mr-4 flex items-center justify-center">
+              <div class="w-2 h-2 bg-transparent rounded-full"></div>
             </div>
-            <div>
-              <p class="text-white font-medium">{{ crypto.name }}</p>
-              <p class="text-gray-400 text-sm">{{ crypto.symbol }}</p>
-              <p *ngIf="crypto.pnl" class="text-gray-400 text-xs mt-1">{{ crypto.pnl }}</p>
+            
+            <div class="flex-1">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-black font-semibold text-lg">{{ crypto.name }}</p>
+                  <p class="text-gray-600 text-base">{{ crypto.symbol }}</p>
+                  <p *ngIf="crypto.pnl" class="text-gray-600 text-base">{{ crypto.pnl }}</p>
+                </div>
+                
+                <div class="text-right">
+                  <p *ngIf="crypto.amount" class="text-black font-semibold text-lg">{{ crypto.amount }}</p>
+                  <p class="text-gray-600 text-base">{{ crypto.value }}</p>
+                  <p *ngIf="crypto.change" [ngClass]="crypto.changeColor" class="text-base">{{ crypto.change }}</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="text-right">
-            <p *ngIf="crypto.amount" class="text-white font-medium">{{ crypto.amount }}</p>
-            <p class="text-gray-400 text-sm">{{ crypto.value }}</p>
-            <p *ngIf="crypto.change" [ngClass]="crypto.changeColor" class="text-xs mt-1">{{ crypto.change }}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Add Card View -->
-  <div *ngIf="currentView === 'add-card'" class="p-4 h-full">
+  <!-- Convert View -->
+  <div *ngIf="currentView === 'convert'" class="p-4 h-full bg-white">
     <!-- Header -->
-    <div class="flex items-center mb-8 pt-4">
-      <button (click)="goBack()" class="mr-4 hover:bg-gray-800 p-2 rounded-full transition-colors duration-200">
-        <ion-icon name="chevron-back-outline" class="text-white text-xl"></ion-icon>
-      </button>
-      <h1 class="text-white text-xl font-bold">Add New Card</h1>
-    </div>
-
-    <!-- Subtitle -->
-    <div class="mb-8">
-      <p class="text-white text-lg mb-2">Enter your credit card details</p>
-      <p class="text-gray-400 text-sm">
-        By continuing you agree to our 
-        <a href="#" class="text-[#00B6E9] hover:underline">Terms</a>
-      </p>
-    </div>
-
-    <!-- Payment Method Icons -->
-    <div class="flex space-x-3 mb-8">
-      <button 
-        *ngFor="let method of paymentMethods" 
-        (click)="selectPaymentMethod(method.id)"
-        class="w-12 h-8 bg-white rounded flex items-center justify-center hover:shadow-lg transition-all duration-200 relative"
-        [ngClass]="{'ring-2 ring-green-500': isPaymentMethodSelected(method.id)}"
-      >
-        <!-- PayPal -->
-        <span *ngIf="method.id === 'paypal'" [ngClass]="method.color" class="font-bold text-xs">{{ method.shortName }}</span>
-        
-        <!-- Visa -->
-        <span *ngIf="method.id === 'visa'" [ngClass]="method.color" class="font-bold text-xs">{{ method.shortName }}</span>
-        
-        <!-- Mastercard -->
-        <div *ngIf="method.id === 'mastercard'" class="flex items-center">
-          <div class="w-6 h-4 bg-red-500 rounded-full mr-1"></div>
-          <div class="w-6 h-4 bg-yellow-500 rounded-full -ml-2"></div>
-        </div>
-        
-        <!-- Diners Club -->
-        <span *ngIf="method.id === 'diners'" [ngClass]="method.color" class="font-bold text-xs">{{ method.shortName }}</span>
-        
-        <!-- American Express -->
-        <span *ngIf="method.id === 'amex'" [ngClass]="method.color" class="font-bold text-xs">{{ method.shortName }}</span>
-        
-        <!-- Selected indicator -->
-        <div 
-          *ngIf="isPaymentMethodSelected(method.id)" 
-          class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center"
-        >
-          <ion-icon name="checkmark" class="text-white text-xs"></ion-icon>
-        </div>
+    <div class="flex items-center mb-6 pt-8">
+      <button (click)="goBack()" class="mr-4">
+        <ion-icon name="chevron-back-outline" class="text-black text-xl"></ion-icon>
       </button>
     </div>
 
-    <!-- Form -->
-    <div class="space-y-6 flex-1">
-      <!-- Cardholder Name -->
-      <div>
-        <label class="block text-white text-base font-medium mb-3">Cardholder name</label>
-        <input 
-          type="text" 
-          [(ngModel)]="cardForm.cardholderName"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white placeholder-gray-500 focus:border-[#6366F1] focus:ring-1 focus:ring-[#6366F1] transition-colors duration-200"
-          placeholder="Enter cardholder name"
-        />
-      </div>
-
-      <!-- Card Number -->
-      <div>
-        <label class="block text-white text-base font-medium mb-3">Card Number</label>
-        <input 
-          type="text" 
-          [(ngModel)]="cardForm.cardNumber"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white placeholder-gray-500 focus:border-[#6366F1] focus:ring-1 focus:ring-[#6366F1] transition-colors duration-200"
-          placeholder="**** **** **** ****"
-        />
-      </div>
-
-      <!-- Expiry Date -->
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-white text-base font-medium mb-3">Exp Month</label>
-          <div class="relative">
-            <select 
-              [(ngModel)]="cardForm.expMonth"
-              class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white appearance-none custom-select focus:border-[#6366F1] focus:ring-1 focus:ring-[#6366F1] transition-colors duration-200"
-            >
-              <option value="12" class="bg-gray-900">12</option>
-              <option value="01" class="bg-gray-900">01</option>
-              <option value="02" class="bg-gray-900">02</option>
-            </select>
-            <ion-icon name="chevron-down-outline" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></ion-icon>
-          </div>
-        </div>
-        <div>
-          <label class="block text-white text-base font-medium mb-3">Exp Year</label>
-          <div class="relative">
-            <select 
-              [(ngModel)]="cardForm.expYear"
-              class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white appearance-none custom-select focus:border-[#6366F1] focus:ring-1 focus:ring-[#6366F1] transition-colors duration-200"
-            >
-              <option value="2024" class="bg-gray-900">2024</option>
-              <option value="2025" class="bg-gray-900">2025</option>
-              <option value="2026" class="bg-gray-900">2026</option>
-            </select>
-            <ion-icon name="chevron-down-outline" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></ion-icon>
+    <!-- Account Section -->
+    <div class="mb-6">
+      <p class="text-black text-lg font-semibold mb-4">Account</p>
+    
+    <!-- From Section with Blue Border -->
+    <div class="border-2 rounded-xl p-4 mb-4 bg-white" 
+         [class.border-blue-500]="activeInputField === 'from'"
+         [class.border-gray-300]="activeInputField !== 'from'">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-gray-600 text-sm">From</span>
+        <div class="flex items-center">
+          <span class="text-gray-600 text-sm">Available Balance: {{ getAvailableBalance(convertFrom) }}</span>
+          <div class="w-4 h-4 bg-blue-500 rounded-full ml-2 flex items-center justify-center">
+            <span class="text-white text-xs">i</span>
           </div>
         </div>
       </div>
-
-      <!-- CVC -->
-      <div>
-        <div class="flex justify-between items-center mb-3">
-          <label class="text-white text-base font-medium">CVC</label>
-          <span class="text-gray-400 text-xs">3 or 4 digits usually found on the signature strip</span>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <div>
+            <p class="text-black font-bold text-lg">{{ convertFrom }}</p>
+            <p class="text-gray-600 text-sm">Bitcoin</p>
+          </div>
         </div>
-        <div class="relative">
-          <select 
-            [(ngModel)]="cardForm.cvc"
-            class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white appearance-none custom-select focus:border-[#6366F1] focus:ring-1 focus:ring-[#6366F1] transition-colors duration-200"
-          >
-            <option value="123" class="bg-gray-900">123</option>
-            <option value="456" class="bg-gray-900">456</option>
-            <option value="789" class="bg-gray-900">789</option>
-          </select>
-          <ion-icon name="chevron-down-outline" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></ion-icon>
+        <div class="text-right flex items-center">
+          <button (click)="setActiveInputField('from')" class="text-right">
+            <span class="text-black text-lg font-medium" 
+                  [class.text-blue-500]="activeInputField === 'from'">
+              {{ convertFromAmount || '0' }}
+            </span>
+          </button>
+          <button (click)="setMaxAmount()" class="text-blue-500 text-sm ml-2 cursor-pointer hover:text-blue-700">
+            Max
+          </button>
         </div>
-      </div>
-
-      <!-- Set as Default Toggle -->
-      <div class="flex items-center justify-between py-4">
-        <span class="text-white font-medium">SET AS DEFAULT</span>
-        <ion-toggle 
-          [(ngModel)]="cardForm.setAsDefault"
-          class="toggle-blue"
-        ></ion-toggle>
       </div>
     </div>
 
-    <!-- Add Button -->
-    <div class="mt-8 pb-4">
-      <cr-button 
-        (click)="addCard()"
-        class="text-white py-4 rounded-lg font-medium text-lg transition-colors duration-200"
-      >
-        Add now
-      </cr-button>
+    <!-- Convert Icon -->
+    <div class="flex justify-center mb-4">
+      <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+        <ion-icon name="swap-vertical-outline" class="text-white"></ion-icon>
+      </div>
+    </div>
+
+    <!-- To Section -->
+    <div class="border-2 rounded-xl p-4 mb-6 bg-white"
+         [class.border-blue-500]="activeInputField === 'to'"
+         [class.border-gray-300]="activeInputField !== 'to'">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-gray-600 text-sm">To</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <div>
+            <p class="text-black font-bold text-lg">{{ convertTo }}</p>
+          </div>
+        </div>
+        <button (click)="setActiveInputField('to')" class="text-right">
+          <span class="text-black text-lg font-medium"
+                [class.text-blue-500]="activeInputField === 'to'">
+            {{ convertToAmount || '---' }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Convert Rate -->
+    <div class="text-center mb-6">
+      <p class="text-gray-600 text-sm">1BTC ≈ -- USDT</p>
+    </div>
+
+    <!-- Convert Button -->
+    <button (click)="convert()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-medium mb-6">
+      Convert
+    </button>
+  </div>
+
+  <!-- Keypad -->
+  <div class="grid grid-cols-3 gap-3">
+    <!-- Row 1 -->
+    <button (click)="appendToConvertAmount('1')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">1</span>
+    </button>
+    <button (click)="appendToConvertAmount('2')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">2</span>
+      <span class="text-xs text-gray-500">ABC</span>
+    </button>
+    <button (click)="appendToConvertAmount('3')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">3</span>
+      <span class="text-xs text-gray-500">DEF</span>
+    </button>
+    
+    <!-- Row 2 -->
+    <button (click)="appendToConvertAmount('4')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">4</span>
+      <span class="text-xs text-gray-500">GHI</span>
+    </button>
+    <button (click)="appendToConvertAmount('5')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">5</span>
+      <span class="text-xs text-gray-500">JKL</span>
+    </button>
+    <button (click)="appendToConvertAmount('6')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">6</span>
+      <span class="text-xs text-gray-500">MNO</span>
+    </button>
+    
+    <!-- Row 3 -->
+    <button (click)="appendToConvertAmount('7')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">7</span>
+      <span class="text-xs text-gray-500">PQRS</span>
+    </button>
+    <button (click)="appendToConvertAmount('8')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">8</span>
+      <span class="text-xs text-gray-500">TUV</span>
+    </button>
+    <button (click)="appendToConvertAmount('9')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">9</span>
+      <span class="text-xs text-gray-500">WXYZ</span>
+    </button>
+    
+    <!-- Row 4 -->
+    <div></div>
+    <button (click)="appendToConvertAmount('0')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center">
+      <span class="text-2xl">0</span>
+    </button>
+    <button (click)="appendToConvertAmount('.')" class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex items-center justify-center">
+      <span class="text-2xl">.</span>
+    </button>
+  </div>
+</div>
+
+  <!-- Buy/Sell Trading View -->
+  <div *ngIf="currentView === 'buy-sell'" class="p-4 h-full bg-white relative">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6 pt-8">
+      <button (click)="goBack()" class="mr-4">
+        <ion-icon name="chevron-back-outline" class="text-black text-2xl"></ion-icon>
+      </button>
+      <h1 class="text-black text-2xl font-bold">{{ tradingMode }}</h1>
+      <div></div>
+    </div>
+
+    <!-- Trading Pair -->
+    <div class="flex items-center mb-2">
+      <h2 class="text-black text-3xl font-bold mr-2">{{ tradingPair }}</h2>
+      <ion-icon name="chevron-down-outline" class="text-black text-xl"></ion-icon>
+    </div>
+    
+    <!-- Percentage Change -->
+    <p class="text-green-500 font-bold text-lg mb-6">{{ tradingPercentChange }}</p>
+
+    <!-- Main Layout with Order Book on Right -->
+    <div class="flex">
+      <!-- Left Column - Trading Controls -->
+      <div class="flex-1 pr-4">
+        <!-- Buy/Sell Toggle -->
+        <div class="flex bg-gray-100 rounded-2xl mb-4 p-1">
+          <button (click)="setTradingMode('BUY')" 
+                  [class]="tradingMode === 'BUY' ? 'bg-green-500 text-white' : 'bg-transparent text-black'"
+                  class="flex-1 py-3 rounded-xl font-bold text-lg transition-colors">
+            BUY
+          </button>
+          <button (click)="setTradingMode('SELL')" 
+                  [class]="tradingMode === 'SELL' ? 'bg-red-500 text-white' : 'bg-transparent text-black'"
+                  class="flex-1 py-3 rounded-xl font-bold text-lg transition-colors">
+            SELL
+          </button>
+        </div>
+
+        <!-- Order Type Selector -->
+        <div class="mb-4 border-2 border-gray-300 rounded-2xl p-4 flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-6 h-6 bg-black rounded-full flex items-center justify-center mr-3">
+              <span class="text-white text-xs font-bold">i</span>
+            </div>
+            <span class="text-black text-lg font-medium">{{ orderType }}</span>
+          </div>
+          <ion-icon name="chevron-down-outline" class="text-gray-600 text-xl"></ion-icon>
+        </div>
+
+        <!-- Price Input -->
+        <div class="mb-4 border-2 border-gray-300 rounded-2xl p-4">
+          <div class="flex items-center justify-between">
+            <button (click)="decreasePrice()" class="text-gray-600 text-3xl font-bold w-8 h-8 flex items-center justify-center">−</button>
+            <div class="flex-1 text-center">
+              <p class="text-gray-600 text-sm mb-1">Price (USDT)</p>
+              <p class="text-black text-2xl font-bold">{{ tradingPrice }}</p>
+            </div>
+            <button (click)="increasePrice()" class="text-gray-600 text-3xl font-bold w-8 h-8 flex items-center justify-center">+</button>
+          </div>
+        </div>
+
+        <!-- Amount Input -->
+        <div class="mb-4 border-2 border-gray-300 rounded-2xl p-4">
+          <div class="flex items-center justify-between">
+            <button (click)="decreaseAmount()" class="text-gray-600 text-3xl font-bold w-8 h-8 flex items-center justify-center">−</button>
+            <div class="flex-1 text-center">
+              <p class="text-gray-600 text-sm mb-1">Amount (KAITO)</p>
+              <p class="text-black text-2xl font-bold">{{ tradingData.amount || '---' }}</p>
+            </div>
+            <button (click)="increaseAmount()" class="text-gray-600 text-3xl font-bold w-8 h-8 flex items-center justify-center">+</button>
+          </div>
+        </div>
+
+        <!-- Total -->
+        <div class="mb-6 border-2 border-gray-300 rounded-2xl p-4">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 text-lg font-medium">Total(USDT)</span>
+          </div>
+        </div>
+
+        <!-- Trading Info -->
+        <div class="space-y-3 mb-6">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 text-lg">Avbl</span>
+            <div class="flex items-center">
+              <span class="text-black text-lg">{{ tradingData.availableBalance }}</span>
+              <div class="w-5 h-5 bg-blue-500 rounded-full ml-2 flex items-center justify-center">
+                <span class="text-white text-xs">+</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 text-lg">Max Buy</span>
+            <span class="text-black text-lg">{{ tradingData.maxBuy }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600 text-lg">Est. Fee</span>
+            <span class="text-black text-lg">{{ tradingData.estFee }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Order Book -->
+      <div class="w-32 flex flex-col">
+        <!-- Order Book Headers -->
+        <div class="grid grid-cols-2 gap-1 mb-2">
+          <p class="text-gray-600 text-center text-xs font-medium">Price<br>(USDT)</p>
+          <p class="text-gray-600 text-center text-xs font-medium">Amount<br>(KAITO)</p>
+        </div>
+        
+        <!-- Red (Sell) Orders -->
+        <div class="space-y-1 mb-2">
+          <div *ngFor="let order of orderBookData.slice(0, 7)" class="grid grid-cols-2 gap-1">
+            <div class="text-red-500 text-right text-xs font-medium">{{ order.price }}</div>
+            <div class="text-black text-left text-xs">{{ order.amount }}</div>
+          </div>
+        </div>
+
+        <!-- Large Total Display -->
+        <div class="text-center my-4">
+          <p class="text-red-500 text-2xl font-bold">{{ tradingData.total }}</p>
+          <p class="text-gray-500 text-sm">₹ $2.03</p>
+        </div>
+
+        <!-- Green (Buy) Orders -->
+        <div class="space-y-1">
+          <div *ngFor="let order of orderBookData.slice(0, 7)" class="grid grid-cols-2 gap-1">
+            <div class="text-green-500 text-right text-xs font-medium">{{ order.price }}</div>
+            <div class="text-black text-left text-xs">{{ order.amount }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Button - positioned at bottom -->
+    <div class="fixed bottom-20 left-4 right-4">
+      <button (click)="executeTrade()" 
+              [class]="tradingMode === 'BUY' ? 'bg-blue-500 text-white' : 'bg-red-500 text-white'"
+              class="w-full py-4 rounded-2xl font-bold text-xl">
+        {{ tradingMode === 'BUY' ? 'Buy KAITO' : 'Sell KAITO' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+    <div class="flex justify-around">
+      <button (click)="navigateToHome()" class="flex flex-col items-center py-2">
+        <ion-icon name="home" [class]="currentView === 'dashboard' ? 'text-blue-500' : 'text-gray-600'" class="text-xl mb-1"></ion-icon>
+        <span [class]="currentView === 'dashboard' ? 'text-blue-500' : 'text-gray-600'" class="text-xs">Home</span>
+      </button>
+      <button (click)="navigateToInvestment()" class="flex flex-col items-center py-2">
+        <ion-icon name="trending-up" [class]="currentView === 'buy-sell' ? 'text-blue-500' : 'text-gray-600'" class="text-xl mb-1"></ion-icon>
+        <span [class]="currentView === 'buy-sell' ? 'text-blue-500' : 'text-gray-600'" class="text-xs">Investment</span>
+      </button>
+      <button (click)="navigateToDonate()" class="flex flex-col items-center py-2">
+        <ion-icon name="heart" class="text-gray-600 text-xl mb-1"></ion-icon>
+        <span class="text-gray-600 text-xs">Donate</span>
+      </button>
+      <button (click)="navigateToProfile()" class="flex flex-col items-center py-2">
+        <ion-icon name="person" class="text-gray-600 text-xl mb-1"></ion-icon>
+        <span class="text-gray-600 text-xs">Profile</span>
+      </button>
     </div>
   </div>
 </ion-content>
