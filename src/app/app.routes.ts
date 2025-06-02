@@ -24,6 +24,10 @@ export const routes: Routes = [
      loadChildren: () => import('./settings/settings.route').then((m) => m.settingsRoute)
   },
   {
+     path: RoutePath.NOTIFICATIONS,
+     loadChildren: () => import('./notifications/notifications.route').then((m) => m.notificationsRoute)
+  },
+  {
     path: '', 
     redirectTo: RoutePath.ONBOARDING, 
     pathMatch: 'full',

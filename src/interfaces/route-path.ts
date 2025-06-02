@@ -7,4 +7,5 @@ export enum RoutePath {
   WALLETCREATION = 'walletcreation',
   DASHBOARD = 'dashboard',
   SETTINGS = 'settings',
+  NOTIFICATIONS = 'notifications',
 }

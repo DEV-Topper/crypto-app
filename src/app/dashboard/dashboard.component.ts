@@ -2,19 +2,28 @@ import { Component } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { IonicModule } from "@ionic/angular"
 import { FormsModule } from "@angular/forms"
+import { ButtonComponent } from "../../components/button/button.component"
+import { NotificationsComponent } from "../notifications/notifications.component"
 
 // Add this type definition after the imports and before the @Component decorator
 type CryptoCurrency = "BTC" | "USDT" | "ETH" | "KAITO"
+
+interface RecentContact {
+  name: string
+  id: string
+  idType: string
+  avatar?: string
+}
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule],
+  imports: [CommonModule, IonicModule, FormsModule, ButtonComponent, NotificationsComponent],
 })
 export class DashboardComponent {
-  currentView = "dashboard" // 'dashboard', 'portfolio', 'account-balance', 'convert', 'buy-sell'
+  currentView = "dashboard" // 'dashboard', 'portfolio', 'account-balance', 'convert', 'buy-sell', 'send-to-rizo', 'notifications'
 
   // Eye visibility states
   dashboardAmountVisible = true
@@ -37,6 +46,10 @@ export class DashboardComponent {
   convertToAmount = ""
   activeInputField = "from" // 'from' or 'to'
 
+  // Send to Rizo states
+  selectedTab: "email" | "rizo" = "email"
+  recipientInput = ""
+
   // Available balances - add proper typing
   availableBalances: Record<CryptoCurrency, number> = {
     BTC: 0.12345678,
@@ -50,6 +63,16 @@ export class DashboardComponent {
     name: "Akindele paul",
     totalValue: 0.230989,
   }
+
+  // Recent contacts for send functionality
+  recentContacts: RecentContact[] = [
+    {
+      name: "David Paul",
+      id: "1236758976",
+      idType: "Binance ID",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+  ]
 
   // Crypto holdings
   cryptoHoldings = [
@@ -158,6 +181,16 @@ export class DashboardComponent {
     console.log("Navigate to settings")
   }
 
+  goToNotifications() {
+    console.log("Navigate to notifications")
+    this.currentView = "notifications"
+  }
+
+  onNotificationGoBack() {
+    console.log("Going back from notifications")
+    this.currentView = "dashboard"
+  }
+
   toggleDashboardAmount() {
     this.dashboardAmountVisible = !this.dashboardAmountVisible
   }
@@ -175,8 +208,13 @@ export class DashboardComponent {
   }
 
   goBack() {
-    this.currentView = "dashboard"
-    console.log("Going back to dashboard") // Debug log
+    console.log("goBack called, current view:", this.currentView)
+    if (this.currentView === "send-to-rizo" || this.currentView === "notifications") {
+      this.currentView = "dashboard"
+    } else {
+      this.currentView = "dashboard"
+    }
+    console.log("Going back to:", this.currentView) // Debug log
   }
 
   // Convert functions
@@ -256,6 +294,39 @@ export class DashboardComponent {
     console.log("Current view set to:", this.currentView) // Debug log
   }
 
+  // SIMPLIFIED: Send functionality without ChangeDetectorRef
+  goToSend() {
+    console.log("Send button clicked!") // Debug log
+    console.log("Current view before:", this.currentView) // Debug log
+
+    // Simple direct assignment
+    this.currentView = "send-to-rizo"
+
+    console.log("Current view after:", this.currentView) // Debug log
+  }
+
+  selectTab(tab: "email" | "rizo") {
+    console.log("Tab selected:", tab)
+    this.selectedTab = tab
+    this.recipientInput = ""
+  }
+
+  onContinue() {
+    if (this.recipientInput.trim()) {
+      console.log("Continue with recipient:", this.recipientInput)
+      // Navigate to next step or process the recipient
+    }
+  }
+
+  selectRecentContact(contact: RecentContact) {
+    console.log("Contact selected:", contact)
+    this.recipientInput = this.selectedTab === "email" ? contact.name : contact.id
+  }
+
+  onEditRecent() {
+    console.log("Edit recent contacts")
+  }
+
   setActiveInputField(field: string) {
     this.activeInputField = field
   }
@@ -295,5 +366,18 @@ export class DashboardComponent {
     const price = Number.parseFloat(this.tradingPrice)
     const amount = Number.parseFloat(this.tradingData.amount || "0")
     this.tradingData.total = (price * amount).toFixed(4)
+  }
+
+  // SIMPLE: Test method without ChangeDetectorRef
+  testSendNavigation() {
+    console.log("Test method called")
+    this.currentView = "send-to-rizo"
+    console.log("View set to:", this.currentView)
+  }
+
+  // SIMPLE: Emergency method without ChangeDetectorRef
+  forceNavigateToSend() {
+    console.log("FORCE NAVIGATE TO SEND")
+    this.currentView = "send-to-rizo"
   }
 }

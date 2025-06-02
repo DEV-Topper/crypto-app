@@ -12,9 +12,13 @@
           <p class="text-black font-semibold text-base">{{ user.name }}</p>
         </div>
       </button>
-      <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center">
+      <button (click)="goToNotifications()" class="w-10 h-10 bg-black rounded-full flex items-center justify-center relative">
         <ion-icon name="notifications" class="text-white text-lg"></ion-icon>
-      </div>
+        <!-- Notification Badge -->
+        <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+          <span class="text-white text-xs font-bold">4</span>
+        </div>
+      </button>
     </div>
 
     <!-- Progress Steps -->
@@ -60,9 +64,9 @@
             <ion-icon [name]="getEyeIcon(dashboardAmountVisible)" class="text-lg"></ion-icon>
           </button>
         </div>
-        <button (click)="addFunds()" class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium text-sm">
+        <cr-button (click)="addFunds()" class="block text-white text-lg font-medium py-4 rounded-lg">
           Add Funds
-        </button>
+        </cr-button>
       </div>
       <p class="text-black text-4xl font-bold mb-6">{{ getDisplayAmount(user.totalValue, dashboardAmountVisible) }}</p>
     </div>
@@ -103,6 +107,11 @@
     </div>
   </div>
 
+  <!-- Notifications View -->
+  <div *ngIf="currentView === 'notifications'">
+    <app-notifications (goBack)="onNotificationGoBack()"></app-notifications>
+  </div>
+
   <!-- Account Balance View -->
   <div *ngIf="currentView === 'account-balance'" class="p-4 h-full bg-white">
     <!-- Header -->
@@ -129,7 +138,10 @@
           <ion-icon name="swap-horizontal-outline" class="mr-2 text-lg"></ion-icon>
           Convert
         </button>
-        <button class="flex items-center justify-center bg-transparent border border-gray-400 text-black py-3 px-6 rounded-full font-medium">
+        <!-- MAIN Send button -->
+        <button 
+          (click)="goToSend()" 
+          class="flex items-center justify-center bg-transparent border border-gray-400 text-black py-3 px-6 rounded-full font-medium hover:bg-gray-100 transition-colors">
           <ion-icon name="arrow-up-outline" class="mr-2 text-lg"></ion-icon>
           Send
         </button>
@@ -173,6 +185,87 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Send to Rizo View -->
+  <div *ngIf="currentView === 'send-to-rizo'" class="min-h-screen bg-white">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 pt-12">
+      <button (click)="goBack()" class="p-2">
+        <ion-icon name="chevron-back-outline" class="text-black text-2xl"></ion-icon>
+      </button>
+      <h1 class="text-xl font-semibold text-black">Send to Rizo User</h1>
+      <button class="bg-gray-400 text-white px-3 py-1 rounded text-sm">
+        Receive
+      </button>
+    </div>
+
+    <!-- Tab Selector -->
+    <div class="px-4 mb-6">
+      <div class="flex bg-gray-100 rounded-lg p-1">
+        <button 
+          (click)="selectTab('email')"
+          [class]="selectedTab === 'email' ? 'bg-white text-black shadow-sm' : 'text-gray-600'"
+          class="flex-1 py-3 px-4 rounded-md font-medium transition-all duration-200">
+          Email / Phone
+        </button>
+        <button 
+          (click)="selectTab('rizo')"
+          [class]="selectedTab === 'rizo' ? 'bg-white text-black shadow-sm' : 'text-gray-600'"
+          class="flex-1 py-3 px-4 rounded-md font-medium transition-all duration-200">
+          Rizo ID
+        </button>
+      </div>
+    </div>
+
+    <!-- Input Field -->
+    <div class="px-4 mb-6">
+      <input
+        type="text"
+        [(ngModel)]="recipientInput"
+        [placeholder]="selectedTab === 'email' ? 'Enter email or phone number' : 'Enter Rizo ID'"
+        class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none text-black placeholder-gray-400">
+    </div>
+
+    <!-- Continue Button -->
+    <div class="px-4 mb-8">
+      <cr-button  
+        (click)="onContinue()"
+        [disabled]="!recipientInput.trim()"
+        class="w-full h-14 text-xl font-medium rounded-lg text-white">
+        Continue
+      </cr-button>
+    </div>
+
+    <!-- Recent Section -->
+    <div class="px-4">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-black">Recent</h2>
+        <button (click)="onEditRecent()" class="text-blue-600 font-medium">
+          Edit
+        </button>
+      </div>
+
+      <!-- Recent Contacts List -->
+      <div class="space-y-3">
+        <div 
+          *ngFor="let contact of recentContacts"
+          (click)="selectRecentContact(contact)"
+          class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+          
+          <!-- Avatar -->
+          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+            <ion-icon name="person" class="text-white text-lg"></ion-icon>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="flex-1">
+            <p class="font-semibold text-black">{{ contact.name }}</p>
+            <p class="text-gray-600 text-sm">{{ contact.id }} ({{ contact.idType }})</p>
           </div>
         </div>
       </div>
@@ -261,9 +354,9 @@
     </div>
 
     <!-- Convert Button -->
-    <button (click)="convert()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-medium mb-6">
+    <cr-button (click)="convert()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-medium mb-6">
       Convert
-    </button>
+    </cr-button>
   </div>
 
   <!-- Keypad -->
@@ -456,11 +549,11 @@
 
     <!-- Action Button - positioned at bottom -->
     <div class="fixed bottom-20 left-4 right-4">
-      <button (click)="executeTrade()" 
+      <cr-button (click)="executeTrade()" 
               [class]="tradingMode === 'BUY' ? 'bg-blue-500 text-white' : 'bg-red-500 text-white'"
-              class="w-full py-4 rounded-2xl font-bold text-xl">
+              class="w-full py-4 rounded-2xl font-bold text-xl mt-[50px]">
         {{ tradingMode === 'BUY' ? 'Buy KAITO' : 'Sell KAITO' }}
-      </button>
+      </cr-button>
     </div>
   </div>
 
