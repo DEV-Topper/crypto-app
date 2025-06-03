@@ -5,21 +5,21 @@
     <!-- <div class="mb-8">
       <img src="assets/rizo-logo.png" alt="RIZO" class="h-10" />
     </div> -->
-    
+
     <!-- Heading -->
-    <h1 class="text-3xl font-bold text-white text-center mb-10">Login</h1>
-    
+    <h1 class="text-3xl font-bold text-center mb-10">Login</h1>
+
     <!-- Form -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-full">
       <!-- Email Field -->
       <div class="mb-6">
-        <label for="email" class="block text-white text-lg mb-4">Email Address</label>
+        <label for="email" class="block text-lg mb-4">Email Address</label>
         <ion-input
           id="email"
           type="email"
-          style="--padding-start: 1rem;"
+          style="--padding-start: 1rem"
           formControlName="email"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white"
+          class="w-full bg-transparent border border-gray-600 rounded-lg p-4"
           [class.border-red-500]="isFieldInvalid('email')"
           placeholder="your.email@example.com"
         ></ion-input>
@@ -27,43 +27,46 @@
           Please enter a valid email address
         </div>
       </div>
-      
+
       <!-- Password Field -->
       <div class="mb-8">
-        <label for="password" class="block text-white text-lg mb-4">Password</label>
+        <label for="password" class="block text-lg mb-4">Password</label>
         <ion-input
           id="password"
           type="password"
-          style="--padding-start: 1rem;"
+          style="--padding-start: 1rem"
           formControlName="password"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-4 text-white"
+          class="w-full bg-transparent border border-gray-600 rounded-lg p-4"
           [class.border-red-500]="isFieldInvalid('password')"
           placeholder="********"
         ></ion-input>
         <div *ngIf="isFieldInvalid('password')" class="text-red-500 mt-1">
           Password is required
         </div>
-        
+
         <!-- Forgot Password Link -->
         <div class="flex justify-end mt-2">
-          <a routerLink="/auth/forgot-password" class="text-[#00B6E9] text-sm">Forgot password?</a>
+          <a routerLink="/auth/forgot-password" class="text-[#00B6E9] text-sm"
+            >Forgot password?</a
+          >
         </div>
       </div>
-      
+
       <!-- Submit Button -->
-      <ion-button 
-        type="submit" 
+      <ion-button
+        type="submit"
         expand="block"
         [disabled]="loginForm.invalid"
-        class="w-full h-14 text-xl font-medium rounded-lg mb-6 bg-[#6366F1] text-white">
+        class="w-full h-14 text-xl font-medium rounded-lg mb-6 bg-[#6366F1]"
+      >
         Login
       </ion-button>
-      
+
       <!-- Sign Up Link -->
       <div class="text-center">
-        <p class="text-white text-lg mb-2">OR</p>
-        <p class="text-white text-lg">
-          Don't have an account? 
+        <p class="text-lg mb-2">OR</p>
+        <p class="text-lg">
+          Don't have an account?
           <a routerLink="/auth/register" class="text-[#00B6E9]">Sign up</a>
         </p>
       </div>
@@ -77,13 +80,15 @@
         <div class="text-center">
           <h2 class="text-sm font-bold mb-2 text-black">Welcome back</h2>
           <p class="text-gray-700 mb-8">
-            Welcome your <span class="text-[#00B6E9]">Rizo</span> account has been created successfully
+            Welcome your <span class="text-[#00B6E9]">Rizo</span> account has
+            been created successfully
           </p>
-          
-          <cr-button 
+
+          <cr-button
             expand="block"
             (click)="proceed()"
-            class="w-full h-14 text-xl font-medium rounded-lg bg-[#6366F1] text-white">
+            class="w-full h-14 text-xl font-medium rounded-lg bg-[#6366F1]"
+          >
             Proceed
           </cr-button>
         </div>

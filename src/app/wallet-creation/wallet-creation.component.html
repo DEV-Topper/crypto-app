@@ -1,88 +1,104 @@
 <!-- wallet-creation.component.html -->
-<ion-content class="bg-black text-white ion-padding">
+<ion-content class="bg-black ion-padding">
   <div class="flex flex-col h-full">
     <!-- Step 1: Welcome -->
     <div *ngIf="currentStep === 1" class="flex flex-col flex-1 items-center">
       <!-- Logo -->
       <div class="mt-20 mb-4 relative">
-        <div class="absolute w-24 h-24 bg-[#00B6E9] rounded-full blur-md opacity-80 -z-10"></div>
-        <img src="assets/rizo-logo-glow.png" alt="Rizo Logo" class="w-32 h-32 object-contain">
+        <div
+          class="absolute w-24 h-24 bg-[#00B6E9] rounded-full blur-md opacity-80 -z-10"
+        ></div>
+        <img
+          src="assets/rizo-logo-glow.png"
+          alt="Rizo Logo"
+          class="w-32 h-32 object-contain"
+        />
       </div>
-      
+
       <!-- Brand Name -->
       <div class="mb-16">
-        <img src="assets/rizo-text.png" alt="Rizo" class="w-48">
+        <img src="assets/rizo-text.png" alt="Rizo" class="w-48" />
       </div>
-      
+
       <!-- Welcome Text -->
       <div class="text-center mb-8">
         <h1 class="text-2xl font-bold mb-2">Welcome to Rizo's Wallet</h1>
         <p class="text-gray-300">To get started create a new wallet</p>
       </div>
-      
+
       <!-- Terms Checkbox -->
       <div class="mt-auto mb-6 flex items-center">
-        <div 
+        <div
           class="w-6 h-6 rounded-full border border-gray-500 flex items-center justify-center mr-3"
-          [ngClass]="{'border-[#00B6E9] bg-transparent': termsAgreed}"
+          [ngClass]="{ 'border-[#00B6E9] bg-transparent': termsAgreed }"
           (click)="termsAgreed = !termsAgreed"
         >
-          <ion-icon 
-            *ngIf="termsAgreed" 
-            name="checkmark" 
+          <ion-icon
+            *ngIf="termsAgreed"
+            name="checkmark"
             class="text-[#00B6E9]"
           ></ion-icon>
         </div>
         <span>
-          I agree to the <a href="#" class="text-[#00B6E9]">Terms and Services</a>
+          I agree to the
+          <a href="#" class="text-[#00B6E9]">Terms and Services</a>
         </span>
       </div>
     </div>
-    
+
     <!-- Step 2: Security -->
     <div *ngIf="currentStep === 2" class="flex flex-col flex-1">
       <!-- Progress Indicator -->
       <div class="flex justify-center space-x-2 mb-16 mt-8">
         <div class="w-16 h-1 rounded-full bg-white"></div>
-        <div class="w-16 h-1 rounded-full" [ngClass]="currentStep >= 3 ? 'bg-white' : 'bg-gray-700'"></div>
-        <div class="w-16 h-1 rounded-full" [ngClass]="currentStep >= 3 ? 'bg-white' : 'bg-gray-700'"></div>
+        <div
+          class="w-16 h-1 rounded-full"
+          [ngClass]="currentStep >= 3 ? 'bg-white' : 'bg-gray-700'"
+        ></div>
+        <div
+          class="w-16 h-1 rounded-full"
+          [ngClass]="currentStep >= 3 ? 'bg-white' : 'bg-gray-700'"
+        ></div>
       </div>
-      
+
       <!-- Lock Icon -->
       <div class="flex justify-center mb-8">
-        <div class="w-20 h-20 bg-[#6366F1] rounded-lg flex items-center justify-center">
-          <ion-icon name="lock-closed" class="text-white text-4xl"></ion-icon>
+        <div
+          class="w-20 h-20 bg-[#6366F1] rounded-lg flex items-center justify-center"
+        >
+          <ion-icon name="lock-closed" class="text-4xl"></ion-icon>
         </div>
       </div>
-      
+
       <!-- Security Text -->
       <div class="text-center mb-12">
         <h1 class="text-2xl font-bold mb-4">Protect Your Wallet</h1>
         <p class="text-gray-300 px-8">
-          Adding biometric security will ensure that you are the only one that can access your wallet
+          Adding biometric security will ensure that you are the only one that
+          can access your wallet
         </p>
       </div>
-      
+
       <!-- Device Authentication Toggle -->
       <div class="border border-gray-700 rounded-lg p-4 mx-4 mb-8">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
             <div class="bg-gray-800 rounded-lg p-2 mr-4">
-              <ion-icon name="scan" class="text-white text-xl"></ion-icon>
+              <ion-icon name="scan" class="text-xl"></ion-icon>
             </div>
             <div>
               <h3 class="font-medium">Device</h3>
               <p class="text-sm text-gray-400">Use Device Authentication</p>
             </div>
           </div>
-          <ion-toggle 
+          <ion-toggle
             [(ngModel)]="useDeviceAuth"
             class="toggle-blue"
           ></ion-toggle>
         </div>
       </div>
     </div>
-    
+
     <!-- Step 3: Recovery Phrase -->
     <div *ngIf="currentStep === 3" class="flex flex-col flex-1">
       <!-- Progress Indicator -->
@@ -91,47 +107,44 @@
         <div class="w-16 h-1 rounded-full bg-white"></div>
         <div class="w-16 h-1 rounded-full bg-white"></div>
       </div>
-      
+
       <!-- Recovery Phrase Title -->
       <h1 class="text-2xl font-bold mb-12 text-center">Recovery Phrase</h1>
-      
+
       <!-- Recovery Phrase Grid -->
       <div class="grid grid-cols-2 gap-3 px-4 mb-8">
         <div *ngFor="let word of recoveryPhrase; let i = index" class="flex">
-          <div class="w-8 h-10 bg-transparent border-r border-gray-700 flex items-center justify-center text-white">
+          <div
+            class="w-8 h-10 bg-transparent border-r border-gray-700 flex items-center justify-center"
+          >
             {{ i + 1 }}
           </div>
-          <div class="flex-1 h-10 bg-transparent border border-gray-700 -ml-px rounded-r-lg flex items-center px-3 text-white">
+          <div
+            class="flex-1 h-10 bg-transparent border border-gray-700 -ml-px rounded-r-lg flex items-center px-3"
+          >
             {{ word }}
           </div>
         </div>
       </div>
-      
+
       <!-- Copy to Clipboard Button -->
-      <button 
-        (click)="copyToClipboard()"
-        class="text-white text-center mb-8"
-      >
+      <button (click)="copyToClipboard()" class="text-center mb-8">
         Copy to Clipboard
       </button>
     </div>
-    
-   
-      
-      <!-- only one Create Wallet button, no duplicates -->
-      <div class="mt-auto mb-4">
-        <cr-button 
+
+    <!-- only one Create Wallet button, no duplicates -->
+    <div class="mt-auto mb-4">
+      <cr-button
         expand=""
-          [disabled]="currentStep === 1 && !termsAgreed"
-          (click)="createWallet()"
-          class="block  text-white text-lg font-medium py-4 rounded-lg"
-          [ngClass]="{'opacity-50': currentStep === 1 && !termsAgreed}"
-          [fullwidth]="true"
-        >
-          Create Wallet
-        </cr-button>
-      </div>
-    
-    
+        [disabled]="currentStep === 1 && !termsAgreed"
+        (click)="createWallet()"
+        class="block text-lg font-medium py-4 rounded-lg"
+        [ngClass]="{ 'opacity-50': currentStep === 1 && !termsAgreed }"
+        [fullwidth]="true"
+      >
+        Create Wallet
+      </cr-button>
+    </div>
   </div>
 </ion-content>
