@@ -1,6 +1,6 @@
 // login.component.ts
 import { Component, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule, IonModal } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import {
@@ -17,13 +17,12 @@ import { ButtonComponent } from '../../../components/button/button.component';
   templateUrl: './login.component.html',
   standalone: true,
   imports: [
-    CommonModule,
     IonicModule,
     RouterModule,
     ReactiveFormsModule,
     ButtonComponent,
-    ButtonComponent,
-  ],
+    ButtonComponent
+],
 })
 export class LoginComponent {
   loginForm!: FormGroup;

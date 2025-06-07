@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../../components/button/button.component';
@@ -10,7 +10,7 @@ import { ButtonComponent } from '../../../components/button/button.component';
   templateUrl: './send-to-rizo-view.component.html',
   styleUrls: ['./send-to-rizo-view.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule, ButtonComponent],
+  imports: [IonicModule, FormsModule, ButtonComponent],
 })
 export class SendToRizoViewComponent implements OnInit {
   selectedTab: 'email' | 'rizo' = 'email';

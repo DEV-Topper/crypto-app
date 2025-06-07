@@ -25,7 +25,7 @@
             : 'text-gray-600'
         "
         class="flex-1 py-3 px-4 rounded-md font-medium transition-all duration-200"
-      >
+        >
         Email / Phone
       </button>
       <button
@@ -36,7 +36,7 @@
             : 'text-gray-600'
         "
         class="flex-1 py-3 px-4 rounded-md font-medium transition-all duration-200"
-      >
+        >
         Rizo ID
       </button>
     </div>
@@ -53,7 +53,7 @@
           : 'Enter Rizo ID'
       "
       class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none text-black placeholder-gray-400"
-    />
+      />
   </div>
 
   <!-- Continue Button -->
@@ -62,7 +62,7 @@
       (click)="onContinue()"
       [disabled]="!recipientInput.trim()"
       class="w-full h-14 text-xl font-medium rounded-lg text-white"
-    >
+      >
       Continue
     </cr-button>
   </div>
@@ -78,26 +78,26 @@
 
     <!-- Recent Contacts List -->
     <div class="space-y-3">
-      <div
-        *ngFor="let contact of recentContacts"
-        (click)="selectRecentContact(contact)"
-        class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-200"
-      >
-        <!-- Avatar -->
+      @for (contact of recentContacts; track contact) {
         <div
-          class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3"
-        >
-          <ion-icon name="person" class="text-white text-lg"></ion-icon>
+          (click)="selectRecentContact(contact)"
+          class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+          >
+          <!-- Avatar -->
+          <div
+            class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3"
+            >
+            <ion-icon name="person" class="text-white text-lg"></ion-icon>
+          </div>
+          <!-- Contact Info -->
+          <div class="flex-1">
+            <p class="font-semibold text-black">{{ contact.name }}</p>
+            <p class="text-gray-600 text-sm">
+              {{ contact.id }} ({{ contact.idType }})
+            </p>
+          </div>
         </div>
-
-        <!-- Contact Info -->
-        <div class="flex-1">
-          <p class="font-semibold text-black">{{ contact.name }}</p>
-          <p class="text-gray-600 text-sm">
-            {{ contact.id }} ({{ contact.idType }})
-          </p>
-        </div>
-      </div>
+      }
     </div>
   </div>
 </div>

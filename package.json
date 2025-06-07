@@ -81,17 +81,18 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "lint-staged": "^15.2.2",
+    "postcss": "^8.5.3",
     "prettier": "^3.2.5",
     "tailwindcss-safe-area-capacitor": "^0.5.1",
     "typescript": "~5.7.2"
   },
   "browserslist": [
-    "Chrome >=61",
-    "ChromeAndroid >=61",
-    "Firefox >=63",
+    "Chrome >=120",
+    "ChromeAndroid >=120",
+    "Firefox >=120",
     "Firefox ESR",
-    "Edge >=79",
-    "Safari >=13",
-    "iOS >=13"
+    "Edge >=120",
+    "Safari >=17",
+    "iOS >=17"
   ]
 }

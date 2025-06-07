@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { ModalController } from '@ionic/angular';
 import { IonContent } from '@ionic/angular/standalone';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'cr-splash',
@@ -10,14 +11,19 @@ import { IonContent } from '@ionic/angular/standalone';
   standalone: true,
   imports: [IonContent],
 })
-export class SplashComponent {
-  constructor(private modalCtrl: ModalController) {}
+export class SplashComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
+  private modalCtrl = inject(ModalController);
 
-  ionViewDidEnter() {
-    SplashScreen.hide(); // Hide the native splash screen
+  ngOnInit() {
+    SplashScreen.hide(); 
 
-    setTimeout(() => {
-      this.modalCtrl.dismiss(); // Dismiss the fake splash screen after a delay
-    }, 3000); // Adjust this delay as needed for your animation
+    this.subscription = interval(3000).subscribe(() => {
+      this.modalCtrl.dismiss();
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

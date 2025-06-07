@@ -49,14 +49,8 @@ import {
 export class AppComponent implements OnInit {
   title = 'crypto-app';
   private storage = inject(Storage);
-
-  constructor(
-    private platform: Platform,
-    private modalCtrl: ModalController,
-  ) {
-    this.initializeApp();
-    this.addIconsToApp();
-  }
+  private modalCtrl = inject(ModalController);
+  private platform = inject(Platform);
 
   private addIconsToApp() {
     addIcons({
@@ -95,7 +89,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  async initializeApp() {
+  private async initializeSplashScreen() {
     await this.platform.ready();
     const splashModal = await this.modalCtrl.create({
       component: SplashComponent,
@@ -106,18 +100,22 @@ export class AppComponent implements OnInit {
     await splashModal.present();
   }
 
-  async ngOnInit() {
-    await this.storage.create();
-
-    // Initialize SafeArea plugin
+  private async initializeSafeArea() {
     await SafeArea.enable({
       config: {
         customColorsForSystemBars: true,
-        statusBarColor: '#00000000', // transparent
+        statusBarColor: '#00000000',
         statusBarContent: 'light',
-        navigationBarColor: '#00000000', // transparent
+        navigationBarColor: '#00000000', 
         navigationBarContent: 'light',
       },
     });
+  }
+
+  async ngOnInit() {
+    await this.storage.create();
+    this.addIconsToApp();
+    await this.initializeSplashScreen();
+    await this.initializeSafeArea();
   }
 }

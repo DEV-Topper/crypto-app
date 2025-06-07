@@ -4,10 +4,7 @@ import {
   withFetch,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import {
-  ApplicationConfig,
-  importProvidersFrom
-} from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideRouter,
@@ -38,12 +35,15 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled',
       }),
       withEnabledBlockingInitialNavigation(),
-      withRouterConfig({ onSameUrlNavigation: 'reload' }),
+      withRouterConfig({
+        onSameUrlNavigation: 'reload',
+      }),
     ),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     importProvidersFrom(
       IonicModule.forRoot({
         mode: 'ios',
+        animated: true,
       }),
       IonicStorageModule.forRoot({
         driverOrder: [

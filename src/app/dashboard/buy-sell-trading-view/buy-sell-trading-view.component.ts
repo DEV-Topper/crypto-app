@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -9,7 +9,7 @@ import { IonicModule } from '@ionic/angular';
   templateUrl: './buy-sell-trading-view.component.html',
   styleUrls: ['./buy-sell-trading-view.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, ButtonComponent],
+  imports: [IonicModule, ButtonComponent],
 })
 export class BuySellTradingViewComponent implements OnInit {
   tradingMode: 'BUY' | 'SELL' = 'BUY';

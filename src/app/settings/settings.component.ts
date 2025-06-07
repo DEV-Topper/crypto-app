@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
@@ -10,10 +10,9 @@ import { ButtonComponent } from '../../components/button/button.component';
   styleUrls: ['./settings.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     IonicModule,
     ButtonComponent
-  ]
+]
 })
 export class SettingsComponent {
   currentView: string = 'settings';

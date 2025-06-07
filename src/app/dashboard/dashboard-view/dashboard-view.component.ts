@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'cr-dashboard-view',
   templateUrl: './dashboard-view.component.html',
   styleUrls: ['./dashboard-view.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, ButtonComponent],
+  imports: [IonicModule, ButtonComponent],
 })
 export class DashboardViewComponent implements OnInit {
   user: any; // TODO: Define a proper interface for user

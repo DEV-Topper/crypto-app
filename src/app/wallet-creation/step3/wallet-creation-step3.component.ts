@@ -1,4 +1,4 @@
-import { CommonModule, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { ButtonComponent } from '../../../components/button/button.component';
@@ -6,7 +6,7 @@ import { ButtonComponent } from '../../../components/button/button.component';
 @Component({
   selector: 'cr-wallet-creation-step3',
   standalone: true,
-  imports: [NgClass, IonContent, IonIcon, ButtonComponent, CommonModule],
+  imports: [NgClass, IonContent, IonIcon, ButtonComponent],
   templateUrl: './wallet-creation-step3.component.html',
   styleUrls: ['./wallet-creation-step3.component.scss'],
 })

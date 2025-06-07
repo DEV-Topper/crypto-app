@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { CommonModule } from '@angular/common';
+
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './convert-view.component.html',
   styleUrls: ['./convert-view.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, ButtonComponent, FormsModule],
+  imports: [IonicModule, ButtonComponent, FormsModule],
 })
 export class ConvertViewComponent implements OnInit {
   activeInputField: 'from' | 'to' = 'from';

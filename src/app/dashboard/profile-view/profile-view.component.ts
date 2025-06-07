@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   IonHeader,
   IonToolbar,
@@ -18,7 +18,6 @@ import {
   selector: 'cr-profile-view',
   standalone: true,
   imports: [
-    CommonModule,
     IonHeader,
     IonToolbar,
     IonButtons,
@@ -29,8 +28,8 @@ import {
     IonIcon,
     IonList,
     IonItem,
-    IonLabel,
-  ],
+    IonLabel
+],
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss'],
 })
