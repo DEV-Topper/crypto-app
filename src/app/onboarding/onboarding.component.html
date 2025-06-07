@@ -23,7 +23,12 @@
         <h1 class="text-[32px] font-black mt-6">{{ item.b }}</h1>
         <p class="text-center text-base mt-2">{{ item.p }}</p>
         @if (isLastSlide) {
-          <cr-button [routerLink]="['/',Route.AUTH,Route.REGISTER]" size="large" class="mt-10" [fullwidth]="true">
+          <cr-button
+            [routerLink]="['/', Route.AUTH, Route.REGISTER]"
+            size="large"
+            class="mt-10 w-full"
+            [fullwidth]="true"
+          >
             Get Started
           </cr-button>
         }

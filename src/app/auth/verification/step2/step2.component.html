@@ -1,0 +1,99 @@
+<ion-content [formGroup]="form" class="bg-white ion-padding">
+  <div class="flex flex-col h-full">
+    <div class="flex flex-col flex-1">
+      <h6 class="text-xl font-bold mb-6 text-gray-900">
+        Let's Get You Verified
+      </h6>
+
+      <!-- Document Country -->
+      <div class="mb-6">
+        <label class="block text-base text-gray-700 mb-2"
+          >Document Issuing country</label
+        >
+        <div
+          class="w-full bg-transparent border border-gray-300 rounded-lg p-3 flex justify-between items-center cursor-pointer"
+          (click)="openCountryModal()"
+        >
+          <div class="flex items-center">
+            @if (documentCountry) {
+              <img
+                class="size-5 mr-2"
+                [src]="getCountryFlag(documentCountry)"
+                [alt]="documentCountry"
+              />
+            }
+            <span class="text-sm text-gray-900">{{
+              documentCountry || "Select Country"
+            }}</span>
+          </div>
+          <ion-icon
+            name="chevron-down-outline"
+            class="text-lg text-gray-500"
+          ></ion-icon>
+        </div>
+      </div>
+
+      <!-- Document Type -->
+      <div>
+        <label class="block text-base text-gray-700 mb-2">Document Type</label>
+
+        <!-- ID Card -->
+        <div
+          (click)="selectDocumentType('ID Card')"
+          [class.border-primary]="documentType === 'ID Card'"
+          [class.border-gray-300]="documentType !== 'ID Card'"
+          class="flex items-center border rounded-lg p-3 mb-3 cursor-pointer"
+        >
+          <ion-icon
+            name="card-outline"
+            class="text-lg text-gray-700 mr-2"
+          ></ion-icon>
+          <div class="text-sm text-gray-900">ID Card</div>
+          <!-- @if (documentType === "ID Card") { -->
+          <div class="ml-auto text-xs text-primary">Recommended</div>
+          <!-- } -->
+        </div>
+
+        <!-- Passport -->
+        <div
+          (click)="selectDocumentType('Passport')"
+          [class.border-primary]="documentType === 'Passport'"
+          [class.border-gray-300]="documentType !== 'Passport'"
+          class="flex items-center border rounded-lg p-3 mb-3 cursor-pointer"
+        >
+          <ion-icon
+            name="globe-outline"
+            class="text-lg text-gray-700 mr-2"
+          ></ion-icon>
+          <div class="text-sm text-gray-900">Passport</div>
+        </div>
+
+        <!-- Driver's License -->
+        <div
+          (click)="selectDocumentType('Driver\'s License')"
+          [class.border-primary]="documentType === 'Driver\'s License'"
+          [class.border-gray-300]="documentType !== 'Driver\'s License'"
+          class="flex items-center border rounded-lg p-3 mb-3 cursor-pointer"
+        >
+          <ion-icon
+            name="car-outline"
+            class="text-lg text-gray-700 mr-2"
+          ></ion-icon>
+          <div class="text-sm text-gray-900">Driver's License</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Button -->
+    <div class="mt-auto">
+      <cr-button
+        (click)="nextStep()"
+        size="large"
+        class="mt-10 w-full"
+        [fullwidth]="true"
+      >
+        Continue
+      </cr-button>
+    </div>
+  </div>
+</ion-content>

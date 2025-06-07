@@ -1,0 +1,65 @@
+/* profile-view.component.scss */
+
+ion-content {
+  --background: #ffffff; /* Light mode background */
+}
+
+ion-toolbar {
+  --background: #ffffff; /* Light mode toolbar background */
+  --color: #000; /* Light mode text color */
+}
+
+ion-title {
+  color: #000; /* Light mode title color */
+}
+
+ion-item {
+  --background: #ffffff; /* Light mode item background */
+  --color: #000; /* Light mode item text color */
+  --border-color: #e0e0e0; /* Light mode border color */
+  --border-width: 1px 0 0 0; /* Top border */
+  &:last-child {
+    --border-width: 1px 0 1px 0; /* Top and bottom border for the last item */
+  }
+}
+
+ion-list {
+  padding: 0;
+  margin: 0;
+  background: transparent; /* Ensure list background is transparent */
+}
+
+ion-label {
+  font-size: 1rem; /* Adjust label font size */
+}
+
+ion-icon[slot="start"] {
+  color: #4f4f4f; /* Icon color */
+  margin-right: 12px; /* Space between icon and label */
+}
+
+ion-icon[slot="end"] {
+  color: #c0c0c0; /* Arrow color */
+}
+
+ion-icon[color="danger"] {
+  color: #ff3b30; /* Red color for trash and logout icons */
+}
+
+h2 {
+  color: #007bff; /* Primary color for section titles (adjust if needed based on your theme's primary color) */
+}
+
+.bg-primary {
+  background-color: var(
+    --ion-color-primary,
+    #007bff
+  ); /* Use theme primary color or default blue */
+}
+
+.text-primary {
+  color: var(
+    --ion-color-primary,
+    #007bff
+  ); /* Use theme primary color or default blue */
+}

@@ -1,42 +1,48 @@
 <!-- register.component.html -->
 <ion-content class="bg-black ion-padding">
-  <div class="flex flex-col items-center w-full max-w-md mx-auto px-4 py-8">
+  <content class="flex flex-col items-center justify-center h-screen">
     <!-- Logo -->
     <!-- <div class="mb-8">
-      <img src="assets/rizo-logo.png" alt="RIZO" class="h-10" />
-    </div> -->
-
+        <img src="assets/rizo-logo.png" alt="RIZO" class="h-10" />
+      </div> -->
+  
     <!-- Heading -->
-    <h1 class="text-3xl font-bold text-center mb-10">Create Your Account</h1>
-
+    <h6 class="text-md! font-black text-center mt-0! mb-10!">
+      Create Your Account
+    </h6>
+  
     <!-- Form -->
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-full">
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+      class="w-full flex flex-col"
+    >
       <!-- Name Field -->
       <div class="mb-6">
-        <label for="name" class="block text-lg mb-4">Enter your Name</label>
+        <label for="name" class="block text-sm mb-1 font-bold">Enter your Name</label>
         <ion-input
           id="name"
           formControlName="name"
-          style="--padding-start: 1rem"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-6"
+          style="--padding-start: 1rem; --max-height: 40px"
+          class="w-full bg-transparent text-[12px]! text-[12px]! border border-gray-600 rounded-sm! max-h-[40px]"
           [class.border-red-500]="isFieldInvalid('name')"
           placeholder="Your full name"
         ></ion-input>
-
+  
         <div *ngIf="isFieldInvalid('name')" class="text-red-500 mt-1">
           Name is required
         </div>
       </div>
-
+  
       <!-- Email Field -->
       <div class="mb-6">
-        <label for="email" class="block text-lg mb-4">Email Address</label>
+        <label for="email" class="block text-sm mb-1">Email Address</label>
         <ion-input
           id="email"
           type="email"
           style="--padding-start: 1rem"
           formControlName="email"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-6"
+          class="w-full bg-transparent text-[12px]! border border-gray-600 rounded-sm! max-h-[40px]"
           [class.border-red-500]="isFieldInvalid('email')"
           placeholder="your.email@example.com"
         ></ion-input>
@@ -44,16 +50,16 @@
           Please enter a valid email address
         </div>
       </div>
-
+  
       <!-- Phone Field -->
       <div class="mb-6">
-        <label for="phone" class="block text-lg mb-4">Enter Phone Number</label>
+        <label for="phone" class="block text-sm mb-1">Enter Phone Number</label>
         <ion-input
           id="phone"
           type="tel"
           style="--padding-start: 1rem"
           formControlName="phone"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-4"
+          class="w-full bg-transparent text-[12px]! border border-gray-600 rounded-sm! p-4"
           [class.border-red-500]="isFieldInvalid('phone')"
           placeholder="Your phone number"
         ></ion-input>
@@ -61,10 +67,10 @@
           Please enter a valid phone number
         </div>
       </div>
-
+  
       <!-- Password Field -->
       <div class="mb-6">
-        <label for="password" class="block text-lg mb-4"
+        <label for="password" class="block text-sm mb-1"
           >Enter Your Password</label
         >
         <ion-input
@@ -72,7 +78,7 @@
           type="password"
           style="--padding-start: 1rem"
           formControlName="password"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-4"
+          class="w-full bg-transparent text-[12px]! border border-gray-600 rounded-sm! p-4"
           [class.border-red-500]="isFieldInvalid('password')"
           placeholder="********"
         ></ion-input>
@@ -80,10 +86,10 @@
           Password must be at least 8 characters
         </div>
       </div>
-
+  
       <!-- Confirm Password Field -->
       <div class="mb-8">
-        <label for="confirmPassword" class="block text-lg mb-4"
+        <label for="confirmPassword" class="block text-sm mb-1"
           >Confirm Your Password</label
         >
         <ion-input
@@ -91,59 +97,51 @@
           type="password"
           style="--padding-start: 1rem"
           formControlName="confirmPassword"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-4"
+          class="w-full bg-transparent text-[12px]! border border-gray-600 rounded-sm! p-4"
           [class.border-red-500]="isFieldInvalid('confirmPassword')"
           placeholder="********"
         ></ion-input>
-        <div
-          *ngIf="isFieldInvalid('confirmPassword')"
-          class="text-red-500 mt-1"
-        >
+        <div *ngIf="isFieldInvalid('confirmPassword')" class="text-red-500 mt-1">
           Passwords do not match
         </div>
       </div>
-
+  
       <!-- Submit Button -->
-      <ion-button
-        type="submit"
-        expand="block"
-        [disabled]="registerForm.invalid"
-        class="w-full h-14 text-xl font-medium rounded-lg mb-6 bg-[#6366F1]"
+      <cr-button [fullwidth]="true" class="" size="medium"
+        ><span class="text-sm">Get started</span></cr-button
       >
-        Get started
-      </ion-button>
-
+  
       <!-- Sign In Link -->
       <div class="text-center">
-        <p class="text-lg mb-2">OR</p>
-        <p class="text-lg">
-          Already have an account?
+        <p class="text-sm my-2">OR</p>
+        <p class="text-xs font-bold">
+          Already have an account? 
           <a routerLink="/auth/login" class="text-[#00B6E9]">Sign in</a>
         </p>
       </div>
     </form>
-  </div>
-
-  <!-- Success Modal -->
-  <ion-modal [initialBreakpoint]="0.4" [breakpoints]="[0, 0.4, 1]" #modal>
-    <ng-template>
-      <div class="bg-white rounded-t-3xl p-6">
-        <div class="text-center">
-          <h2 class="text-sm text-black font-bold mb-2">Welcome to Rizo</h2>
-          <p class="text-gray-700 mb-8">
-            Welcome your <span class="text-[#00B6E9]">Rizo</span> account has
-            been created successfully
-          </p>
-
-          <ion-button
-            expand="block"
-            (click)="proceed()"
-            class="w-full h-14 text-xl font-medium rounded-lg bg-[#6366F1]"
-          >
-            Proceed
-          </ion-button>
+  
+    <!-- Success Modal -->
+    <ion-modal [initialBreakpoint]="0.4" [breakpoints]="[0, 0.4, 1]" #modal>
+      <ng-template>
+        <div class="bg-white rounded-t-3xl p-6">
+          <div class="text-center">
+            <h2 class="text-sm text-black font-bold mb-2">Welcome to Rizo</h2>
+            <p class="text-gray-700 mb-8">
+              Welcome your <span class="text-[#00B6E9]">Rizo</span> account has
+              been created successfully
+            </p>
+  
+            <ion-button
+              expand="block"
+              (click)="proceed()"
+              class="w-full h-14 text-xl font-medium rounded-lg bg-[#6366F1]"
+            >
+              Proceed
+            </ion-button>
+          </div>
         </div>
-      </div>
-    </ng-template>
-  </ion-modal>
+      </ng-template>
+    </ion-modal>
+  </content>
 </ion-content>

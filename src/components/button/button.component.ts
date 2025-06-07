@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { IonButton, IonIcon, IonSpinner } from '@ionic/angular/standalone';
+import { cn } from '../../lib/utils';
 
 type ButtonSize = 'small' | 'medium' | 'large';
 type FillType = 'outline' | 'solid' | 'clear';
@@ -17,6 +18,7 @@ export class ButtonComponent {
   @Input() fill: FillType = 'solid';
   @Input() type: 'button' | 'submit' = 'button';
   @Input() fullwidth = false;
+  @Input() class = '';
 
   @Input() download?: string;
   @Input() href?: string;
@@ -33,4 +35,6 @@ export class ButtonComponent {
   @Output() btnClick = new EventEmitter<void>();
 
   onClick = () => this.btnClick?.emit();
+
+  cn = cn;
 }

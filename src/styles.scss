@@ -10,4 +10,27 @@ body {
   --ion-font-family: "Poppins" !important;
 }
 
+ion-content::part(scroll) {
+  --padding-bottom: var(--ion-safe-area-bottom, 0);
+}
 
+ion-content {
+  --padding-top: var(--ion-safe-area-top, 0);
+}
+
+// Fix for gesture navigation interference with ion-tab-bar
+ion-tab-bar {
+  --background: var(--ion-color-light);
+  --border: none;
+  --padding-bottom: 0;
+  --padding-top: 0;
+  --min-height: 60px;
+  padding-bottom: var(--safe-area-inset-bottom, 0);
+  contain: none;
+}
+
+ion-tab-button {
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  --ripple-color: transparent;
+}

@@ -1,0 +1,45 @@
+<!-- wallet-creation-step1.component.html -->
+<div class="flex flex-col mt-auto items-center h-full">
+  <!-- Logo -->
+  <div class="mt-20 mb-4 relative">
+    <!-- <div
+      class="absolute w-24 h-24 bg-[#00B6E9] rounded-full blur-md opacity-80 -z-10"
+    ></div> -->
+    <!-- <img
+      src="assets/rizo-logo-glow.png"
+      alt=""
+      class="w-32 h-32 object-contain"
+    /> -->
+  </div>
+
+  <!-- Brand Name -->
+  <div class="mb-30">
+    <!-- <img src="assets/rizo-text.png" class="w-48" /> -->
+  </div>
+
+  <!-- Welcome Text -->
+  <div class="text-center mb-40">
+    <h5 class="text-2xl font-bold mb-2 text-gray-900">
+      Welcome to Rizo's Wallet
+    </h5>
+    <p class="text-gray-700 text-sm!">To get started create a new wallet</p>
+  </div>
+
+  <!-- Terms Checkbox -->
+  <div class="mt-auto mb flex items-center">
+    <div
+      class="w-6 h-6 rounded-full border border-gray-400 flex items-center text-sm! justify-center mr-3 cursor-pointer"
+      [class.border-[#00B6E9]]="termsAgreed"
+      [class.bg-transparent]="termsAgreed"
+      (click)="onTermsAgreedChange(!termsAgreed)"
+    >
+      @if (termsAgreed) {
+        <ion-icon name="checkmark" class="text-[#00B6E9]"></ion-icon>
+      }
+    </div>
+    <span class="text-xs text-gray-700">
+      I agree to the
+      <a  class="text-[#00B6E9]">Terms and Services</a>
+    </span>
+  </div>
+</div>

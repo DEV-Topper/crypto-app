@@ -1,0 +1,68 @@
+<ion-content class="bg-black ion-padding">
+  <div class="flex flex-col h-full">
+    <div class="flex flex-col flex-1">
+      <h6 class="text-xl font-bold mb-2">Document Verification</h6>
+      <p class="text-sm text-gray-400 mb-6">
+        Your ID document will be scanned for personal data extraction
+      </p>
+
+      <!-- Upload Options -->
+      <div class="space-y-4">
+        <!-- Take Pictures -->
+        <div
+          (click)="takePictures()"
+          class="w-full flex items-center justify-center border border-gray-600 rounded-lg p-4 cursor-pointer"
+        >
+          <div class="flex items-center">
+            <div class="mr-3 text-xl">
+              <ion-icon name="tablet-portrait-outline"></ion-icon>
+            </div>
+            <span class="text-base">Take Pictures</span>
+          </div>
+        </div>
+
+        <!-- Upload Photos -->
+        <div
+          (click)="uploadPhotos()"
+          class="w-full flex items-center justify-center border border-gray-600 rounded-lg p-4 cursor-pointer"
+        >
+          <div class="flex items-center">
+            <div class="mr-3 text-xl">
+              <ion-icon name="arrow-up-outline"></ion-icon>
+            </div>
+            <span class="text-base">Upload Photos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guidelines -->
+      <div class="mt-6 space-y-3">
+        <div class="flex items-start">
+          <span class="mr-2 font-bold">*</span>
+          <p class="text-sm">
+            Please use the original ID; Copies or screenshots are not allowed
+          </p>
+        </div>
+        <div class="flex items-start">
+          <span class="mr-2 font-bold">*</span>
+          <p class="text-sm">
+            Ensure all information is visible; damaged or expired IDs are not
+            accepted
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="mt-auto flex gap-3">
+      <cr-button
+        (click)="nextStep()"
+        size="large"
+        class="mt-10 w-full"
+        [fullwidth]="true"
+      >
+        Continue
+      </cr-button>
+    </div>
+  </div>
+</ion-content>

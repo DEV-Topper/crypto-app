@@ -1,12 +1,17 @@
 <ion-button
   [shape]="iconOnly ? 'round' : undefined"
   (click)="onClick()"
-  class="items-center justify-center ion-no-margin leading-normal [--border-radius:0] transform-none inline-flex shadow-none capitalize"
+  [class]="
+    cn(
+      'items-center justify-center ion-no-margin leading-normal [--border-radius:0] transform-none shadow-md inline-flex capitalize',
+      class
+    )
+  "
   [ngClass]="[
     size === 'medium' ? 'gap-10' : 'gap-8',
     size,
     color,
-    fullwidth ? 'w-100' : 'w-auto',
+    fullwidth ? 'w-full' : 'w-auto',
   ]"
   [disabled]="disabled"
   [fill]="fill"

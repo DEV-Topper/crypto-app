@@ -1,0 +1,196 @@
+<!-- convert-view.component.html -->
+<div class="p-4 h-full bg-white">
+  <!-- Header -->
+  <div class="flex items-center mb-6 pt-8">
+    <button (click)="goBack()" class="mr-4">
+      <ion-icon
+        name="chevron-back-outline"
+        class="text-black text-xl"
+      ></ion-icon>
+    </button>
+  </div>
+
+  <!-- Account Section -->
+  <div class="mb-6">
+    <p class="text-black text-lg font-semibold mb-4">Account</p>
+
+    <!-- From Section with Blue Border -->
+    <div
+      class="border-2 rounded-xl p-4 mb-4 bg-white"
+      [class.border-blue-500]="activeInputField === 'from'"
+      [class.border-gray-300]="activeInputField !== 'from'"
+    >
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-gray-600 text-sm">From</span>
+        <div class="flex items-center">
+          <span class="text-gray-600 text-sm"
+            >Available Balance: {{ getAvailableBalance(convertFrom) }}</span
+          >
+          <div
+            class="w-4 h-4 bg-blue-500 rounded-full ml-2 flex items-center justify-center"
+          >
+            <span class="text-white text-xs">i</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <div>
+            <p class="text-black font-bold text-lg">{{ convertFrom }}</p>
+            <p class="text-gray-600 text-sm">Bitcoin</p>
+          </div>
+        </div>
+        <div class="text-right flex items-center">
+          <button (click)="setActiveInputField('from')" class="text-right">
+            <span
+              class="text-black text-lg font-medium"
+              [class.text-blue-500]="activeInputField === 'from'"
+            >
+              {{ convertFromAmount || "0" }}
+            </span>
+          </button>
+          <button
+            (click)="setMaxAmount()"
+            class="text-blue-500 text-sm ml-2 cursor-pointer hover:text-blue-700"
+          >
+            Max
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Convert Icon -->
+    <div class="flex justify-center mb-4">
+      <div
+        class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center"
+      >
+        <ion-icon name="swap-vertical-outline" class="text-white"></ion-icon>
+      </div>
+    </div>
+
+    <!-- To Section -->
+    <div
+      class="border-2 rounded-xl p-4 mb-6 bg-white"
+      [class.border-blue-500]="activeInputField === 'to'"
+      [class.border-gray-300]="activeInputField !== 'to'"
+    >
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-gray-600 text-sm">To</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <div>
+            <p class="text-black font-bold text-lg">{{ convertTo }}</p>
+          </div>
+        </div>
+        <button (click)="setActiveInputField('to')" class="text-right">
+          <span
+            class="text-black text-lg font-medium"
+            [class.text-blue-500]="activeInputField === 'to'"
+          >
+            {{ convertToAmount || "---" }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Convert Rate -->
+    <div class="text-center mb-6">
+      <p class="text-gray-600 text-sm">1BTC ≈ -- USDT</p>
+    </div>
+
+    <!-- Convert Button -->
+    <cr-button
+      (click)="convert()"
+      class="w-full bg-blue-600 text-white py-4 rounded-xl font-medium mb-6"
+    >
+      Convert
+    </cr-button>
+  </div>
+
+  <!-- Keypad -->
+  <div class="grid grid-cols-3 gap-3">
+    <!-- Row 1 -->
+    <button
+      (click)="appendToConvertAmount('1')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">1</span>
+    </button>
+    <button
+      (click)="appendToConvertAmount('2')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">2</span>
+      <span class="text-xs text-gray-500">ABC</span>
+    </button>
+    <button
+      (click)="appendToConvertAmount('3')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">3</span>
+      <span class="text-xs text-gray-500">DEF</span>
+    </button>
+
+    <!-- Row 2 -->
+    <button
+      (click)="appendToConvertAmount('4')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">4</span>
+      <span class="text-xs text-gray-500">GHI</span>
+    </button>
+    <button
+      (click)="appendToConvertAmount('5')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">5</span>
+      <span class="text-xs text-gray-500">JKL</span>
+    </button>
+    <button
+      (click)="appendToConvertAmount('6')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">6</span>
+      <span class="text-xs text-gray-500">MNO</span>
+    </button>
+
+    <!-- Row 3 -->
+    <button
+      (click)="appendToConvertAmount('7')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">7</span>
+      <span class="text-xs text-gray-500">PQRS</span>
+    </button>
+    <button
+      (click)="appendToConvertAmount('8')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">8</span>
+      <span class="text-xs text-gray-500">TUV</span>
+    </button>
+    <button
+      (click)="appendToConvertAmount('9')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">9</span>
+      <span class="text-xs text-gray-500">WXYZ</span>
+    </button>
+
+    <!-- Row 4 -->
+    <div></div>
+    <button
+      (click)="appendToConvertAmount('0')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex flex-col items-center justify-center"
+    >
+      <span class="text-2xl">0</span>
+    </button>
+    <button
+      (click)="appendToConvertAmount('.')"
+      class="h-16 bg-gray-200 rounded-xl text-black text-xl font-medium flex items-center justify-center"
+    >
+      <span class="text-2xl">.</span>
+    </button>
+  </div>
+</div>

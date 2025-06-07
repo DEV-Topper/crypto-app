@@ -1,0 +1,37 @@
+<!-- wallet-creation-step3.component.html -->
+<div class="flex flex-col flex-1 bg-white">
+  <!-- Progress Indicator -->
+  <div class="flex justify-center space-x-2 mb-8 mt-8">
+    <div class="w-16 h-1 rounded-full bg-gray-900"></div>
+    <div class="w-16 h-1 rounded-full bg-gray-900"></div>
+    <div class="w-16 h-1 rounded-full bg-gray-900"></div>
+  </div>
+
+  <!-- Recovery Phrase Title -->
+  <h5 class="text-2xl font-bold mb-12 text-center text-gray-900">
+    Recovery Phrase
+  </h5>
+
+  <!-- Recovery Phrase Grid -->
+  <div class="grid grid-cols-2 gap-3 px-4 mb-8">
+    @for (word of recoveryPhrase; track $index) {
+      <div class="flex">
+        <div
+          class="w-8 h-10 bg-transparent border-r border-gray-300 flex items-center justify-center text-sm! text-gray-700"
+        >
+          {{ $index + 1 }}
+        </div>
+        <div
+          class="flex-1 h-10 bg-transparent border border-gray-300 -ml-px rounded-r-lg flex items-center px-3 text-sm! text-gray-900"
+        >
+          {{ word }}
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Copy to Clipboard Button -->
+  <button (click)="onCopy()" class="text-center mb-8 text-sm! text-[#00B6E9]">
+    Copy to Clipboard
+  </button>
+</div>

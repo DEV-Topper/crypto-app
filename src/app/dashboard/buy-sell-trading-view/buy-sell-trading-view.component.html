@@ -1,0 +1,213 @@
+<!-- buy-sell-trading-view.component.html -->
+<div class="p-4 h-full bg-white relative">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6 pt-8">
+    <button (click)="goBack()" class="mr-4">
+      <ion-icon
+        name="chevron-back-outline"
+        class="text-black text-2xl"
+      ></ion-icon>
+    </button>
+    <h1 class="text-xl font-bold text-black">{{ tradingMode }}</h1>
+    <div></div>
+  </div>
+
+  <!-- Trading Pair -->
+  <div class="flex items-center mb-2">
+    <h2 class="text-2xl font-bold mr-2">{{ tradingPair }}</h2>
+    <ion-icon name="chevron-down-outline" class="text-black text-xl"></ion-icon>
+  </div>
+
+  <!-- Percentage Change -->
+  <p class="text-green-500 font-bold text-base mb-6">
+    {{ tradingPercentChange }}
+  </p>
+
+  <!-- Main Layout with Order Book on Right -->
+  <div class="flex">
+    <!-- Left Column - Trading Controls -->
+    <div class="flex-1 pr-4">
+      <!-- Buy/Sell Toggle -->
+      <div class="flex bg-gray-100 rounded-2xl mb-4 p-1">
+        <button
+          (click)="setTradingMode('BUY')"
+          [class]="
+            tradingMode === 'BUY'
+              ? 'bg-green-500 text-white'
+              : 'bg-transparent text-black'
+          "
+          class="flex-1 py-3 rounded-xl font-bold text-lg transition-colors"
+        >
+          BUY
+        </button>
+        <button
+          (click)="setTradingMode('SELL')"
+          [class]="
+            tradingMode === 'SELL'
+              ? 'bg-red-500 text-white'
+              : 'bg-transparent text-black'
+          "
+          class="flex-1 py-3 rounded-xl font-bold text-lg transition-colors"
+        >
+          SELL
+        </button>
+      </div>
+
+      <!-- Order Type Selector -->
+      <div
+        class="mb-4 border-2 border-gray-300 rounded-2xl p-4 flex items-center justify-between"
+      >
+        <div class="flex items-center">
+          <div
+            class="w-6 h-6 bg-black rounded-full flex items-center justify-center mr-3"
+          >
+            <span class="text-white text-xs font-bold">i</span>
+          </div>
+          <span class="text-black text-base font-medium">{{ orderType }}</span>
+        </div>
+        <ion-icon
+          name="chevron-down-outline"
+          class="text-gray-600 text-xl"
+        ></ion-icon>
+      </div>
+
+      <!-- Price Input -->
+      <div class="mb-4 border-2 border-gray-300 rounded-2xl p-4">
+        <div class="flex items-center justify-between">
+          <button
+            (click)="decreasePrice()"
+            class="text-gray-600 text-3xl font-bold w-8 h-8 flex items-center justify-center"
+          >
+            −
+          </button>
+          <div class="flex-1 text-center">
+            <p class="text-gray-600 text-sm mb-1">Price (USDT)</p>
+            <p class="text-black text-xl font-bold">{{ tradingPrice }}</p>
+          </div>
+          <button
+            (click)="increasePrice()"
+            class="text-gray-600 text-3xl font-bold w-8 h-8 flex items-center justify-center"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <!-- Amount Input -->
+      <div class="mb-4 border-2 border-gray-300 rounded-2xl p-4">
+        <div class="flex items-center justify-between">
+          <button
+            (click)="decreaseAmount()"
+            class="text-gray-600 text-3xl font-bold w-8 h-8 flex items-center justify-center"
+          >
+            −
+          </button>
+          <div class="flex-1 text-center">
+            <p class="text-gray-600 text-sm mb-1">Amount (KAITO)</p>
+            <p class="text-black text-xl font-bold">
+              {{ tradingData.amount || "---" }}
+            </p>
+          </div>
+          <button
+            (click)="increaseAmount()"
+            class="text-gray-600 text-3xl font-bold w-8 h-8 flex items-center justify-center"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div class="mb-6 border-2 border-gray-300 rounded-2xl p-4">
+        <div class="flex justify-between items-center">
+          <span class="text-gray-600 text-base font-medium">Total(USDT)</span>
+        </div>
+      </div>
+
+      <!-- Trading Info -->
+      <div class="space-y-3 mb-6">
+        <div class="flex justify-between items-center">
+          <span class="text-gray-600 text-base">Avbl</span>
+          <div class="flex items-center">
+            <span class="text-black text-base">{{
+              tradingData.availableBalance
+            }}</span>
+            <div
+              class="w-5 h-5 bg-blue-500 rounded-full ml-2 flex items-center justify-center"
+            >
+              <span class="text-white text-xs">+</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600 text-base">Max Buy</span>
+          <span class="text-black text-base">{{ tradingData.maxBuy }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600 text-base">Est. Fee</span>
+          <span class="text-black text-base">{{ tradingData.estFee }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Order Book -->
+    <div class="w-32 flex flex-col">
+      <!-- Order Book Headers -->
+      <div class="grid grid-cols-2 gap-1 mb-2">
+        <p class="text-gray-600 text-center text-xs font-medium">
+          Price<br />(USDT)
+        </p>
+        <p class="text-gray-600 text-center text-xs font-medium">
+          Amount<br />(KAITO)
+        </p>
+      </div>
+
+      <!-- Red (Sell) Orders -->
+      <div class="space-y-1 mb-2">
+        <div
+          *ngFor="let order of orderBookData.slice(0, 7)"
+          class="grid grid-cols-2 gap-1"
+        >
+          <div class="text-red-500 text-right text-xs font-medium">
+            {{ order.price }}
+          </div>
+          <div class="text-black text-left text-xs">{{ order.amount }}</div>
+        </div>
+      </div>
+
+      <!-- Large Total Display -->
+      <div class="text-center my-4">
+        <p class="text-red-500 text-xl font-bold">{{ tradingData.total }}</p>
+        <p class="text-gray-500 text-xs">₹ {{ tradingData.fiatTotal }}</p>
+      </div>
+
+      <!-- Green (Buy) Orders -->
+      <div class="space-y-1">
+        <div
+          *ngFor="let order of orderBookData.slice(0, 7)"
+          class="grid grid-cols-2 gap-1"
+        >
+          <div class="text-green-500 text-right text-xs font-medium">
+            {{ order.price }}
+          </div>
+          <div class="text-black text-left text-xs">{{ order.amount }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Button - positioned at bottom -->
+  <div class="fixed bottom-20 left-4 right-4">
+    <cr-button
+      (click)="executeTrade()"
+      [class]="
+        tradingMode === 'BUY'
+          ? 'bg-blue-500 text-white'
+          : 'bg-red-500 text-white'
+      "
+      class="w-full py-4 rounded-2xl font-bold text-lg mt-[50px]"
+    >
+      {{ tradingMode === "BUY" ? "Buy KAITO" : "Sell KAITO" }}
+    </cr-button>
+  </div>
+</div>

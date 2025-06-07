@@ -1,0 +1,31 @@
+<ion-content>
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-title>Select Country</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="modal.dismiss()">Close</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar
+        [formControl]="searchControl"
+        placeholder="Search country"
+        animated
+        class="custom-searchbar"
+      ></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    @for (country of filteredCountries; track country.name) {
+      <ion-item button (click)="selectCountry(country)" class="country-item">
+        <img
+          [src]="getCountryFlag(country.code)"
+          [alt]="country.name"
+          class="w-4 mr-2"
+        />
+        <ion-label>{{ country.name }}</ion-label>
+      </ion-item>
+    }
+  </ion-list>
+</ion-content>

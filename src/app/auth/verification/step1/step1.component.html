@@ -1,0 +1,113 @@
+<ion-content [formGroup]="form" class="bg-black ion-padding">
+  <div class="flex flex-col h-full">
+    <div class="flex flex-col flex-1">
+      <h6 class="text-xl font-bold mb-6!">Let's Get You Verified</h6>
+
+      <!-- Nationality Selection -->
+      <div class="mb-6">
+        <label class="block text-base mb-2">Nationality</label>
+        <div
+          id="open-country-modal"
+          class="w-full bg-transparent border border-gray-600 rounded-lg p-3 flex justify-between items-center cursor-pointer"
+          (click)="openCountryModal()"
+        >
+          <div class="flex items-center">
+            @if (nationality) {
+              <img class="size-5 mr-2" [src]="getCountryFlag(nationality)" />
+            }
+            <span class="text-sm">{{ nationality || "Select Country" }}</span>
+          </div>
+          <ion-icon name="chevron-down-outline" class="text-lg"></ion-icon>
+        </div>
+      </div>
+
+      <!-- Verification Method -->
+      <div class="mb-4">
+        <label class="block text-base mb-2">Verify with BVN or NIN</label>
+        <div class="flex space-x-6 mb-3">
+          <label class="flex items-center">
+            <div class="relative flex items-center justify-center">
+              <input
+                type="radio"
+                name="verifyWith"
+                value="BVN"
+                formControlName="verifyWith"
+                class="opacity-0 absolute pl-1 h-5 w-5"
+              />
+              <div
+                [ngClass]="{
+                  'border-[#6366F1] bg-[#6366F1]':
+                    form.get('verifyWith')?.value === 'BVN',
+                  'border-gray-600': form.get('verifyWith')?.value !== 'BVN',
+                }"
+                class="border-2 rounded-full h-5 w-5 flex items-center justify-center"
+              >
+                @if (form.get('verifyWith')?.value === "BVN") {
+                  <div class="bg-white rounded-full h-1.5 w-1.5"></div>
+                }
+              </div>
+            </div>
+            <span class="ml-2 text-sm">BVN</span>
+          </label>
+
+          <label class="flex items-center">
+            <div class="relative flex items-center justify-center">
+              <input
+                type="radio"
+                name="verifyWith"
+                value="NIN"
+                formControlName="verifyWith"
+                class="opacity-0 absolute pl-4! h-5 w-5"
+              />
+              <div
+                [ngClass]="{
+                  'border-[#6366F1] bg-[#6366F1]':
+                    form.get('verifyWith')?.value === 'NIN',
+                  'border-gray-600': form.get('verifyWith')?.value !== 'NIN',
+                }"
+                class="border-2 rounded-full h-5 w-5 flex items-center justify-center"
+              >
+                @if (form.get('verifyWith')?.value === "NIN") {
+                  <div class="bg-white rounded-full h-1.5 w-1.5"></div>
+                }
+              </div>
+            </div>
+            <span class="ml-2 text-sm">NIN</span>
+          </label>
+        </div>
+
+        <!-- BVN/NIN Input -->
+        <ion-input
+          type="text"
+          formControlName="bvnNumber"
+          style="--padding-start: 1rem; --max-height: 40px"
+          placeholder="Enter your BVN"
+          class="w-full bg-transparent border border-gray-600 rounded-sm! max-h-[40px] text-sm! pl-2 mb-3"
+        ></ion-input>
+
+        <!-- Alternative Verification -->
+        <div class="text-xs text-gray-400 mt-2">
+          Don't have BVN or NIN?
+          <a href="#" class="text-[#00B6E9]">Verify with ID documents</a>
+        </div>
+      </div>
+
+      <!-- Data Collection Notice -->
+      <div class="mt-auto mb-4 text-xs text-gray-400">
+        We collect your data from public database for verification.
+      </div>
+    </div>
+
+    <!-- Continue Button -->
+    <div class="mt-auto">
+      <cr-button
+        (click)="nextStep()"
+        size="large"
+        class="mt-10 mr-3"
+        [fullwidth]="true"
+      >
+        Continue
+      </cr-button>
+    </div>
+  </div> 
+</ion-content>

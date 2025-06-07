@@ -1,0 +1,75 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        class="text-sm!"
+        defaultHref="/dashboard"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title class="text-sm!">Privacy and Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="flex flex-col items-center mb-8">
+    <div class="relative">
+      <img
+        src="/assets/images/dummy-user.jpg"
+        class="size-20 object-cover rounded-full"
+        alt="Profile Picture"
+      />
+
+      <div
+        class="absolute bottom-0 right-0 bg-primary flex items-center justify-center rounded-full p-1"
+      >
+        <ion-icon name="pencil" class="text-white text-lg"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Account Section -->
+  <div class="mb-8">
+    <h2 class="text-sm! font-bold text-primary mb-4">Account</h2>
+    <ion-list >
+      <ion-item button="true">
+        <ion-icon slot="start" name="person-outline"></ion-icon>
+        <ion-label class="text-sm!">Manage My Account</ion-label>
+      </ion-item>
+      <ion-item button="true">
+        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+        <ion-label class="text-sm!">Security Settings</ion-label>
+      </ion-item>
+      <ion-item button="true">
+        <ion-icon slot="start" name="wallet-outline"></ion-icon>
+        <ion-label class="text-sm!">My Balance</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Support Section -->
+  <div>
+    <h2 class="text-sm! font-bold text-primary mb-4">Support</h2>
+    <ion-list >
+      <ion-item button="true">
+        <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+        <ion-label class="text-sm!">Help</ion-label>
+      </ion-item>
+      <ion-item button="true">
+        <ion-icon slot="start" name="document-text-outline"></ion-icon>
+        <ion-label class="text-sm!">FAQ</ion-label>
+      </ion-item>
+      <ion-item button="true">
+        <ion-icon slot="start" name="mail-outline"></ion-icon>
+        <ion-label class="text-sm!">Contact Support</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="text-sm!">Clear Saved Data</ion-label>
+        <ion-icon slot="end" name="trash-outline" color="danger"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label class="text-sm!">Log Out</ion-label>
+        <ion-icon slot="end" name="log-out-outline" color="danger"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

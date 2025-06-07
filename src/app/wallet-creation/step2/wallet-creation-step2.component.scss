@@ -1,0 +1,36 @@
+/* wallet-creation-step2.component.scss */
+.bg-white {
+  --ion-background-color: #ffffff;
+  background-color: #ffffff;
+}
+
+.text-gray-900 {
+  color: #1a202c;
+}
+
+.text-gray-700 {
+  color: #4a5568;
+}
+
+.bg-gray-300 {
+  background-color: #e2e8f0;
+}
+
+.border-gray-300 {
+  border-color: #e2e8f0;
+}
+
+.bg-gray-200 {
+  background-color: #edf2f7;
+}
+
+.text-sm\! {
+  font-size: 0.875rem !important;
+}
+
+.toggle-blue {
+  --handle-box-shadow: none;
+  --handle-background: var(--ion-color-primary);
+  --background: var(--ion-color-medium);
+  --background-checked: var(--ion-color-primary);
+}

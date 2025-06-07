@@ -1,0 +1,113 @@
+<!-- account-balance-view.component.html -->
+<div class="p-4 h-full bg-white">
+  <!-- Header -->
+  <div class="flex items-center mb-8 pt-8">
+    <button (click)="goBack()" class="mr-4">
+      <ion-icon
+        name="chevron-back-outline"
+        class="text-black text-2xl"
+      ></ion-icon>
+    </button>
+    <h1 class="text-black text-xl font-semibold">Account Balance</h1>
+  </div>
+
+  <!-- Total Value Section -->
+  <div class="mb-8">
+    <div class="flex items-center mb-4">
+      <p class="text-black text-base mr-2">EST. Total Value (USD)</p>
+      <button (click)="togglePortfolioAmount()" class="text-black">
+        <ion-icon
+          [name]="getEyeIcon(portfolioAmountVisible)"
+          class="text-xl"
+        ></ion-icon>
+      </button>
+    </div>
+    <p class="text-black text-4xl font-bold mb-8">
+      {{ getDisplayAmount(user.totalValue, portfolioAmountVisible) }}
+    </p>
+
+    <!-- Action Buttons -->
+    <div class="flex space-x-4 mb-8">
+      <button
+        (click)="goToConvert()"
+        class="flex items-center justify-center bg-transparent border border-gray-400 text-black py-3 px-6 rounded-full font-medium"
+      >
+        <ion-icon
+          name="swap-horizontal-outline"
+          class="mr-2 text-lg"
+        ></ion-icon>
+        Convert
+      </button>
+      <!-- MAIN Send button -->
+      <button
+        (click)="goToSend()"
+        class="flex items-center justify-center bg-transparent border border-gray-400 text-black py-3 px-6 rounded-full font-medium hover:bg-gray-100 transition-colors"
+      >
+        <ion-icon name="arrow-up-outline" class="mr-2 text-lg"></ion-icon>
+        Send
+      </button>
+      <button
+        class="flex items-center justify-center bg-transparent border border-gray-400 text-black py-3 px-6 rounded-full font-medium"
+      >
+        <ion-icon name="arrow-down-outline" class="mr-2 text-lg"></ion-icon>
+        Receive
+      </button>
+    </div>
+  </div>
+
+  <!-- Separator Line -->
+  <div class="border-t border-gray-300 mb-6"></div>
+
+  <!-- Crypto Holdings -->
+  <div>
+    <h3 class="text-black text-xl font-semibold mb-6">Crypto</h3>
+    <div class="space-y-0">
+      <div
+        *ngFor="let crypto of accountCrypto; let i = index"
+        class="flex items-center justify-between py-4"
+        [class.border-b]="i < accountCrypto.length - 1"
+        [class.border-gray-300]="i < accountCrypto.length - 1"
+      >
+        <div class="flex items-center flex-1">
+          <!-- Radio Button -->
+          <div
+            class="w-5 h-5 border-2 border-gray-400 rounded-full mr-4 flex items-center justify-center"
+          >
+            <div class="w-2 h-2 bg-transparent rounded-full"></div>
+          </div>
+
+          <div class="flex-1">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-black font-semibold text-lg">
+                  {{ crypto.name }}
+                </p>
+                <p class="text-gray-600 text-base">{{ crypto.symbol }}</p>
+                <p *ngIf="crypto.pnl" class="text-gray-600 text-base">
+                  {{ crypto.pnl }}
+                </p>
+              </div>
+
+              <div class="text-right">
+                <p
+                  *ngIf="crypto.amount"
+                  class="text-black font-semibold text-lg"
+                >
+                  {{ crypto.amount }}
+                </p>
+                <p class="text-gray-600 text-base">{{ crypto.value }}</p>
+                <p
+                  *ngIf="crypto.change"
+                  [ngClass]="crypto.changeColor"
+                  class="text-base"
+                >
+                  {{ crypto.change }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

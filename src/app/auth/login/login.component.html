@@ -1,82 +1,95 @@
 <!-- login.component.html -->
 <ion-content class="bg-white text-black ion-padding">
-  <div class="flex flex-col items-center w-full max-w-md mx-auto px-4 py-8">
-    <!-- Logo -->
-    <!-- <div class="mb-8">
-      <img src="assets/rizo-logo.png" alt="RIZO" class="h-10" />
-    </div> -->
+  <div class="flex flex-col items-center mt-[30%] h-screen">
+    <div class="w-full max-w-md mx-auto">
+      <!-- Logo -->
+      <!-- <div class="mb-8">
+        <img src="assets/rizo-logo.png" alt="RIZO" class="h-10" />
+      </div> -->
 
-    <!-- Heading -->
-    <h1 class="text-3xl font-bold text-center mb-10">Login</h1>
+      <!-- Heading -->
+      <h6 class="text-md! font-black text-center mt-0! mb-10!">Sign in</h6>
 
-    <!-- Form -->
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-full">
-      <!-- Email Field -->
-      <div class="mb-6">
-        <label for="email" class="block text-lg mb-4">Email Address</label>
-        <ion-input
-          id="email"
-          type="email"
-          style="--padding-start: 1rem"
-          formControlName="email"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-4"
-          [class.border-red-500]="isFieldInvalid('email')"
-          placeholder="your.email@example.com"
-        ></ion-input>
-        <div *ngIf="isFieldInvalid('email')" class="text-red-500 mt-1">
-          Please enter a valid email address
-        </div>
-      </div>
-
-      <!-- Password Field -->
-      <div class="mb-8">
-        <label for="password" class="block text-lg mb-4">Password</label>
-        <ion-input
-          id="password"
-          type="password"
-          style="--padding-start: 1rem"
-          formControlName="password"
-          class="w-full bg-transparent border border-gray-600 rounded-lg p-4"
-          [class.border-red-500]="isFieldInvalid('password')"
-          placeholder="********"
-        ></ion-input>
-        <div *ngIf="isFieldInvalid('password')" class="text-red-500 mt-1">
-          Password is required
-        </div>
-
-        <!-- Forgot Password Link -->
-        <div class="flex justify-end mt-2">
-          <a routerLink="/auth/forgot-password" class="text-[#00B6E9] text-sm"
-            >Forgot password?</a
-          >
-        </div>
-      </div>
-
-      <!-- Submit Button -->
-      <ion-button
-        type="submit"
-        expand="block"
-        [disabled]="loginForm.invalid"
-        class="w-full h-14 text-xl font-medium rounded-lg mb-6 bg-[#6366F1]"
+      <!-- Form -->
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        class="w-full flex flex-col"
       >
-        Login
-      </ion-button>
+        <!-- Email Field -->
+        <div class="mb-6">
+          <label for="email" class="block text-sm mb-1 font-bold"
+            >Email Address</label
+          >
+          <ion-input
+            id="email"
+            type="email"
+            style="--padding-start: 1rem; --max-height: 40px"
+            formControlName="email"
+            class="w-full bg-transparent text-[12px]! border border-gray-600 rounded-sm! max-h-[40px]"
+            [class.border-red-500]="isFieldInvalid('email')"
+            placeholder="your.email@example.com"
+          ></ion-input>
+          <div *ngIf="isFieldInvalid('email')" class="text-red-500 mt-1">
+            Please enter a valid email address
+          </div>
+        </div>
 
-      <!-- Sign Up Link -->
-      <div class="text-center">
-        <p class="text-lg mb-2">OR</p>
-        <p class="text-lg">
-          Don't have an account?
-          <a routerLink="/auth/register" class="text-[#00B6E9]">Sign up</a>
-        </p>
-      </div>
-    </form>
+        <!-- Password Field -->
+        <div class="mb-8">
+          <label for="password" class="block text-sm mb-1 font-bold"
+            >Password</label
+          >
+          <ion-input
+            id="password"
+            type="password"
+            style="--padding-start: 1rem; --max-height: 40px"
+            formControlName="password"
+            class="w-full bg-transparent text-[12px]! border border-gray-600 rounded-sm! p-4 max-h-[40px]"
+            [class.border-red-500]="isFieldInvalid('password')"
+            placeholder="********"
+          ></ion-input>
+          <div *ngIf="isFieldInvalid('password')" class="text-red-500 mt-1">
+            Password is required
+          </div>
+
+          <!-- Forgot Password Link -->
+          <div class="flex justify-end mt-2">
+            <a routerLink="/auth/forgot-password" class="text-[#00B6E9] text-sm"
+              >Forgot password?</a
+            >
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <cr-button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          [fullwidth]="true"
+          class=""
+          size="medium"
+        >
+          <span class="text-sm">Login</span>
+        </cr-button>
+
+        <!-- Sign Up Link -->
+        <div class="text-center">
+          <p class="text-sm my-2">OR</p>
+          <p class="text-xs font-bold">
+            Don't have an account?
+            <a routerLink="/auth/register" class="text-[#00B6E9]">Sign up</a>
+          </p>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- Success Modal -->
-  <ion-modal [initialBreakpoint]="0.4" [breakpoints]="[0, 0.4, 1]" #modal>
+  <ion-modal [initialBreakpoint]="0.4" [breakpoints]="[0, 0.4]" #modal>
     <ng-template>
-      <div class="bg-white rounded-t-3xl p-6">
+      <div
+        class="bg-white rounded-t-3xl py-3 px-4 h-[100%] flex flex-col"
+      >
         <div class="text-center">
           <h2 class="text-sm font-bold mb-2 text-black">Welcome back</h2>
           <p class="text-gray-700 mb-8">
@@ -84,13 +97,17 @@
             been created successfully
           </p>
 
-          <cr-button
-            expand="block"
-            (click)="proceed()"
-            class="w-full h-14 text-xl font-medium rounded-lg bg-[#6366F1]"
-          >
-            Proceed
-          </cr-button>
+          <div class="w-full mt-[30%]">
+            <cr-button
+              expand="block"
+              (click)="proceed()"
+              [fullwidth]="true"
+              size="large"
+              class="w-full! mt-[20%]! bottom-2 text-xl font-medium rounded-lg"
+            >
+              Proceed
+            </cr-button>
+          </div>
         </div>
       </div>
     </ng-template>

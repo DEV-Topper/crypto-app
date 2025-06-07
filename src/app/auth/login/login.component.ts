@@ -3,7 +3,12 @@ import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, IonModal } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../components/button/button.component';
 
@@ -16,8 +21,9 @@ import { ButtonComponent } from '../../../components/button/button.component';
     IonicModule,
     RouterModule,
     ReactiveFormsModule,
-    ButtonComponent
-  ]
+    ButtonComponent,
+    ButtonComponent,
+  ],
 })
 export class LoginComponent {
   loginForm!: FormGroup;
@@ -25,7 +31,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
   ) {
     this.initForm();
   }
@@ -33,13 +39,13 @@ export class LoginComponent {
   initForm() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
     });
   }
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.loginForm.get(fieldName);
-    return field ? (field.invalid && (field.dirty || field.touched)) : false;
+    return field ? field.invalid && (field.dirty || field.touched) : false;
   }
 
   onSubmit() {
@@ -49,7 +55,7 @@ export class LoginComponent {
       this.modal.present();
     } else {
       // Mark all fields as touched to trigger validation messages
-      Object.keys(this.loginForm.controls).forEach(key => {
+      Object.keys(this.loginForm.controls).forEach((key) => {
         const control = this.loginForm.get(key);
         control?.markAsTouched();
       });
