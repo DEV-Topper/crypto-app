@@ -69,7 +69,8 @@ export class DashboardViewComponent implements OnInit {
   }
 
   addFunds() {
-    // Implement add funds logic/navigation
+    this.router.navigate(['/dashboard/account-balance']);
+
     console.log('Add Funds clicked');
   }
 }
