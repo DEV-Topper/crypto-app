@@ -9,38 +9,45 @@
       ></ion-icon>
     </button>
     <h1 class="text-xl font-semibold text-black">Send to Rizo User</h1>
-    <button class="bg-gray-400 text-white px-3 py-1 rounded text-sm">
+    <button class=" text-black px-3 py-1 rounded text-sm">
       Receive
     </button>
   </div>
 
-  <!-- Tab Selector -->
+
   <div class="px-4 mb-6">
-    <div class="flex bg-gray-100 rounded-lg p-1">
+    <div class="relative bg-gray-300 rounded-full p-1 flex overflow-hidden">
+      <!-- sliding background pill -->
+      <div
+        class="absolute inset-y-1 left-1 h-10 w-1/2 bg-white rounded-full shadow-md transition-transform duration-300"
+        [class.translate-x-full]="selectedTab === 'rizo'"
+      ></div>
+  
+      <!-- Email / Phone Tab -->
       <button
         (click)="selectTab('email')"
-        [class]="
-          selectedTab === 'email'
-            ? 'bg-white text-black shadow-sm'
-            : 'text-gray-600'
-        "
-        class="flex-1 py-3 px-4 rounded-md font-medium transition-all duration-200"
-        >
+        class="relative z-10 flex-1 text-center py-2.5 font-semibold transition-colors duration-200 focus:outline-none"
+        [class.text-gray-800]="selectedTab === 'email'"
+        [class.text-gray-600]="selectedTab !== 'email'"
+        [class.hover:text-gray-800]="true"
+      >
         Email / Phone
       </button>
+  
+      <!-- Rizo ID Tab -->
       <button
         (click)="selectTab('rizo')"
-        [class]="
-          selectedTab === 'rizo'
-            ? 'bg-white text-black shadow-sm'
-            : 'text-gray-600'
-        "
-        class="flex-1 py-3 px-4 rounded-md font-medium transition-all duration-200"
-        >
+        class="relative z-10 flex-1 text-center py-2.5 font-semibold transition-colors duration-200 focus:outline-none"
+        [class.text-gray-800]="selectedTab === 'rizo'"
+        [class.text-gray-600]="selectedTab !== 'rizo'"
+        [class.hover:text-gray-800]="true"
+      >
         Rizo ID
       </button>
     </div>
   </div>
+  
+
 
   <!-- Input Field -->
   <div class="px-4 mb-6">
